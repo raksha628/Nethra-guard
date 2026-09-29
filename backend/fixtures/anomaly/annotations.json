@@ -1,0 +1,97 @@
+{
+  "annotations": [
+    {
+      "bbox": [
+        10,
+        10,
+        30,
+        20
+      ],
+      "category_id": 1,
+      "id": 1,
+      "image_id": 1,
+      "iscrowd": 0
+    },
+    {
+      "bbox": [
+        10,
+        10,
+        20,
+        30
+      ],
+      "category_id": 2,
+      "id": 2,
+      "image_id": 2,
+      "iscrowd": 0
+    },
+    {
+      "bbox": [
+        70,
+        50,
+        40,
+        40
+      ],
+      "category_id": 1,
+      "id": 3,
+      "image_id": 4,
+      "iscrowd": 0
+    },
+    {
+      "bbox": [
+        10,
+        10,
+        20,
+        20
+      ],
+      "category_id": 99,
+      "id": 4,
+      "image_id": 5,
+      "iscrowd": 0
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "vehicle"
+    },
+    {
+      "id": 2,
+      "name": "person"
+    }
+  ],
+  "images": [
+    {
+      "file_name": "img_001.png",
+      "height": 80,
+      "id": 1,
+      "width": 100
+    },
+    {
+      "file_name": "img_001_dup.png",
+      "height": 80,
+      "id": 2,
+      "width": 100
+    },
+    {
+      "file_name": "img_003.png",
+      "height": 80,
+      "id": 3,
+      "width": 100
+    },
+    {
+      "file_name": "img_002.png",
+      "height": 80,
+      "id": 4,
+      "width": 100
+    },
+    {
+      "file_name": "img_004.png",
+      "height": 80,
+      "id": 5,
+      "width": 100
+    }
+  ],
+  "info": {
+    "description": "NETRA-Guard controlled dataset anomaly fixture"
+  }
+}

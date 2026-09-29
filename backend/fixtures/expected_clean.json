@@ -1,0 +1,222 @@
+{
+  "inference": {
+    "adapter": "deterministic_fallback",
+    "config": {
+      "adapter": "deterministic_fallback",
+      "preprocessing": {
+        "color_order": "RGB",
+        "normalization": "none",
+        "note": "The fallback records decoded size and returns fixed boxes. It does not run a detector.",
+        "resize": null
+      },
+      "scenario": "NONE",
+      "simulated": true
+    },
+    "config_hash": "5bfa1034bddaaa8a5008bb2b6c2a98baa45e593c99cdff7899d7d79c2d793019",
+    "executed": true,
+    "images": [
+      {
+        "detections": [
+          {
+            "bbox_xyxy": [
+              10,
+              10,
+              40,
+              30
+            ],
+            "class_id": 1,
+            "confidence": 0.91
+          }
+        ],
+        "image_id": "img_001.png"
+      },
+      {
+        "detections": [
+          {
+            "bbox_xyxy": [
+              12,
+              8,
+              32,
+              48
+            ],
+            "class_id": 2,
+            "confidence": 0.83
+          }
+        ],
+        "image_id": "img_002.png"
+      },
+      {
+        "detections": [
+          {
+            "bbox_xyxy": [
+              15,
+              10,
+              40,
+              35
+            ],
+            "class_id": 1,
+            "confidence": 0.77
+          }
+        ],
+        "image_id": "img_003.png"
+      },
+      {
+        "detections": [
+          {
+            "bbox_xyxy": [
+              8,
+              10,
+              26,
+              40
+            ],
+            "class_id": 2,
+            "confidence": 0.88
+          }
+        ],
+        "image_id": "img_004.png"
+      }
+    ],
+    "images_meta": [
+      {
+        "height": 80,
+        "image_id": "img_001.png",
+        "sha256": "04a31c2ab8dbea7b89bbd8c98f73a2eeee4813ac8dabc98e2749286084daeb7b",
+        "width": 100
+      },
+      {
+        "height": 80,
+        "image_id": "img_002.png",
+        "sha256": "3cee7448e48477e926941d5b710e57e20f8b64f30c2ddaeb1345e84d54a0c565",
+        "width": 100
+      },
+      {
+        "height": 80,
+        "image_id": "img_003.png",
+        "sha256": "ef97fa2aa8101c140a8ab7cabaef8b894c7c5c56c4cb6f75ca962387072fae1e",
+        "width": 100
+      },
+      {
+        "height": 80,
+        "image_id": "img_004.png",
+        "sha256": "d497b832737f1f642dd339fce1f8e532bd0514e600ed3788fc2f9995b68389c1",
+        "width": 100
+      }
+    ],
+    "input_set_hash": "63c092e8cb020ecf88168d2d44e66c289858935a4b795611751673e59ae8b860",
+    "limitations": "Detections are produced by a deterministic fallback adapter and are labeled simulated. They are not outputs of the model weights. Do not use them as evidence of model behavior.",
+    "model_hash": "6dc1d983695b77a964a28d6b732632473e4c7f167d9f055f7f3f373fc487daff",
+    "preprocessing": {
+      "color_order": "RGB",
+      "normalization": "none",
+      "note": "The fallback records decoded size and returns fixed boxes. It does not run a detector.",
+      "resize": null
+    },
+    "simulated": true,
+    "skipped_images": []
+  },
+  "ledger_entry": {
+    "actorLabel": "local-demo",
+    "baselineRunId": null,
+    "configHash": "8dbb06e22cedf43810e7dbc8fb0265bf6cc4d0b97c09f8cc361237e2d1b669b6",
+    "currentHash": "a0d686466e248ec5125b733f6ac290c643932c020c9f9d23665a62dc63488b2d",
+    "datasetHash": "c854628a8703dc247e167b82714cc93e6fc4b30fa948aabc7e2867b16c88dfa5",
+    "isValid": true,
+    "modelHash": "6dc1d983695b77a964a28d6b732632473e4c7f167d9f055f7f3f373fc487daff",
+    "previousHash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "runId": "RUN-NONE-001",
+    "sequence": 1,
+    "summaryHash": "97f3db3f10d94baab0ee159b3d0ee086c15e727c0c92f5b4c9f2d23c6704d8af",
+    "timestamp": "2026-01-01T00:00:00Z"
+  },
+  "ledger_verification": {
+    "firstInvalidSequence": null,
+    "reason": null,
+    "status": "VALID"
+  },
+  "modules": [
+    {
+      "findings": [],
+      "metrics": {
+        "annotation_count": 4,
+        "annotation_format": "coco",
+        "certainty": "Rule-based / deterministic check",
+        "class_counts": {
+          "person": 2,
+          "vehicle": 2
+        },
+        "dataset_hash": "c854628a8703dc247e167b82714cc93e6fc4b30fa948aabc7e2867b16c88dfa5",
+        "declared_image_count": 4,
+        "duplicate_group_count": 0,
+        "images": [
+          {
+            "file_name": "img_001.png",
+            "height": 80,
+            "sha256": "04a31c2ab8dbea7b89bbd8c98f73a2eeee4813ac8dabc98e2749286084daeb7b",
+            "width": 100
+          },
+          {
+            "file_name": "img_002.png",
+            "height": 80,
+            "sha256": "3cee7448e48477e926941d5b710e57e20f8b64f30c2ddaeb1345e84d54a0c565",
+            "width": 100
+          },
+          {
+            "file_name": "img_003.png",
+            "height": 80,
+            "sha256": "ef97fa2aa8101c140a8ab7cabaef8b894c7c5c56c4cb6f75ca962387072fae1e",
+            "width": 100
+          },
+          {
+            "file_name": "img_004.png",
+            "height": 80,
+            "sha256": "d497b832737f1f642dd339fce1f8e532bd0514e600ed3788fc2f9995b68389c1",
+            "width": 100
+          }
+        ],
+        "limitations": "Checks are rule-based and cover this COCO JSON fixture only. They do not detect semantic mislabels or poisoning that preserves file structure.",
+        "readable_image_count": 4,
+        "thresholds": {
+          "aspect_ratio_max": 8.0,
+          "class_imbalance_ratio": 4.0,
+          "duplicate_max_per_hash": 1,
+          "note": "Prototype demonstration thresholds, not universal limits.",
+          "resolution_deviation": 0.5
+        }
+      },
+      "module": "data_integrity",
+      "status": "PASS"
+    },
+    {
+      "findings": [],
+      "metrics": {
+        "baseline_sha256": "6dc1d983695b77a964a28d6b732632473e4c7f167d9f055f7f3f373fc487daff",
+        "certainty": "Rule-based / deterministic check",
+        "format": ".bin",
+        "limitations": "SHA-256 match means the file bytes equal the registered baseline. It does not prove the artifact is safe or that training was trusted. Pickle-based weights are never loaded.",
+        "metadata": {},
+        "sha256": "6dc1d983695b77a964a28d6b732632473e4c7f167d9f055f7f3f373fc487daff",
+        "size_bytes": 39,
+        "weights_loaded": false
+      },
+      "module": "model_integrity",
+      "status": "PASS"
+    },
+    {
+      "findings": [],
+      "metrics": {
+        "reason": "Distribution shift is owned by the analytics workstream and is not executed in this module."
+      },
+      "module": "distribution_shift",
+      "status": "NOT_RUN"
+    },
+    {
+      "findings": [],
+      "metrics": {
+        "reason": "Baseline comparison is owned by the analytics workstream and is not executed in this module."
+      },
+      "module": "comparator",
+      "status": "NOT_RUN"
+    }
+  ],
+  "scenario": "NONE"
+}

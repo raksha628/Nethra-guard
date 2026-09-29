@@ -1,0 +1,62 @@
+[
+  {
+    "detections": [
+      {
+        "bbox_xyxy": [
+          10,
+          10,
+          40,
+          30
+        ],
+        "class_id": 1,
+        "confidence": 0.91
+      }
+    ],
+    "image_id": "img_001.png"
+  },
+  {
+    "detections": [
+      {
+        "bbox_xyxy": [
+          12,
+          8,
+          32,
+          48
+        ],
+        "class_id": 2,
+        "confidence": 0.83
+      }
+    ],
+    "image_id": "img_002.png"
+  },
+  {
+    "detections": [
+      {
+        "bbox_xyxy": [
+          15,
+          10,
+          40,
+          35
+        ],
+        "class_id": 1,
+        "confidence": 0.77
+      }
+    ],
+    "image_id": "img_003.png"
+  },
+  {
+    "detections": [
+      {
+        "bbox_xyxy": [
+          8,
+          10,
+          26,
+          40
+        ],
+        "class_id": 2,
+        "confidence": 0.88
+      }
+    ],
+    "image_id": "img_004.png"
+  }
+]
