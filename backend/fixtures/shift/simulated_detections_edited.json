@@ -1,0 +1,36 @@
+{
+  "simulated": true,
+  "limitations": "Edited detection contract for comparator tests. These boxes are not outputs of model weights.",
+  "images": [
+    {
+      "image_id": "img_001.png",
+      "detections": [
+        {
+          "class_id": 1,
+          "confidence": 0.5,
+          "bbox_xyxy": [14, 14, 44, 34]
+        }
+      ]
+    },
+    {
+      "image_id": "img_002.png",
+      "detections": [
+        {
+          "class_id": 1,
+          "confidence": 0.83,
+          "bbox_xyxy": [12, 8, 32, 48]
+        }
+      ]
+    },
+    {
+      "image_id": "img_004.png",
+      "detections": [
+        {
+          "class_id": 2,
+          "confidence": 0.88,
+          "bbox_xyxy": [8, 10, 26, 40]
+        }
+      ]
+    }
+  ]
+}
