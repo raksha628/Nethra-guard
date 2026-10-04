@@ -276,7 +276,27 @@ The prototype demonstrates three core demo scenarios to validate the workflow:
 
 ## 13. Local Setup
 
-**Prerequisites:** Node.js (v20+ recommended)
+**Prerequisites:** 
+- Node.js (v20+ recommended)
+- Python 3.10+
+
+### Starting the Backend (FastAPI)
+The Python backend uses `uvicorn` and expects the `backend` folder to be its application root. Run these commands from the root of the repository:
+
+```bash
+# Create and activate a virtual environment (Windows)
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+
+# Install requirements
+pip install -r backend/requirements.txt
+
+# Start the backend server (ensure you use the --app-dir flag)
+python -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000 --reload
+```
+
+### Starting the Frontend (React/Vite)
+Open a new terminal window:
 
 ```bash
 # Install dependencies
