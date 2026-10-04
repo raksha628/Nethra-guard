@@ -23,12 +23,12 @@ export function TopHeader() {
           onClick={() => window.location.reload()}
           className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white bg-black/40 hover:bg-black/60 border border-white/10 rounded transition-colors"
         >
-          Reset Demo
+          Reset State
         </button>
 
         <div className="flex items-center space-x-2 px-2.5 py-1 rounded bg-status-warning/10 text-status-warning text-xs font-semibold border border-status-warning/20">
           <Activity className="w-3.5 h-3.5" />
-          <span>PROTOTYPE / CONTROLLED DEMO</span>
+          <span>ASSURANCE ANALYSIS</span>
         </div>
         
         <div className="flex items-center space-x-2 text-xs font-medium text-ng-text-secondary">

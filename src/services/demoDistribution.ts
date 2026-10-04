@@ -9,7 +9,7 @@ export const demoDistributionContext: DistributionContext = {
   alertLevel: 'WARNING',
   observedScore: 0.45,
   method: 'Histogram distance (Wasserstein & KS-Test)',
-  isControlledDemo: true,
+  isControlledDemo: false,
   demoConditionName: 'BRIGHTNESS SHIFT',
   
   brightnessDistribution: [

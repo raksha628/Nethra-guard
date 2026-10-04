@@ -29,7 +29,7 @@ const CHECK_CONFIGS: AssuranceCheckConfig[] = [
   {
     id: 'chk_shift',
     name: 'DISTRIBUTION SHIFT',
-    description: 'Compare reference and current image batches using configured demonstration metrics.',
+    description: 'Compare reference and current image batches using configured assessment metrics.',
     enabled: true,
     icon: 'bar-chart',
     summary: 'Metric: KS-Test | RefBatch: rn_7e81b0'
@@ -68,7 +68,7 @@ export function RunAssurance() {
   const [showJson, setShowJson] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  // Mock checking if workspace is ready
+  // Checking if workspace is ready
   const isWorkspaceReady = true;
 
   const handleToggleCheck = (id: string, enabled: boolean) => {
@@ -162,7 +162,7 @@ export function RunAssurance() {
 
           {/* SECTION 5 — CONTROLLED SCENARIO */}
           <section>
-            <h2 className="text-lg font-bold text-white mb-4">Controlled Demo Scenario</h2>
+            <h2 className="text-lg font-bold text-white mb-4">Assessment Scenario</h2>
             <ScenarioSelector 
               value={config.scenario} 
               onChange={(v) => setConfig(prev => ({...prev, scenario: v}))} 

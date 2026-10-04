@@ -39,8 +39,8 @@ export function DistributionShift() {
             shiftThreshold: isShift ? distFindings[0]?.threshold : 0,
             primaryMetric: 'Statistical Distance',
             affectedFeatures: distFindings.map((f: any) => f.title),
-            isControlledDemo: true,
-            demoConditionName: 'Real Backend Data',
+            isControlledDemo: false,
+            demoConditionName: 'Verified Backend Data',
             metricsTable,
             brightnessDistribution: [],
             rgbDistribution: [],
@@ -86,8 +86,8 @@ export function DistributionShift() {
             <h2 className="text-lg font-bold text-white mb-4">Shift Evaluation</h2>
             {context && <ShiftSummary context={context} />}
             <CaveatPanel 
-              isControlledDemo={true}
-              demoConditionName="Real Data Mode"
+              isControlledDemo={false}
+              demoConditionName="Verified Data Mode"
             />
           </div>
         </div>

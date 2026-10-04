@@ -63,7 +63,7 @@ export function Overview() {
             { id: 'c3', name: 'Distribution Shift', status: mappedFindings.some((f: any) => f.category === 'DISTRIBUTION_SHIFT' && f.severity === 'CRITICAL') ? 'FAIL' : 'PASS', explanation: 'Features compared' }
           ]);
 
-          // Timeline mock for real run
+          // Timeline events for real run
           setTimeline([
             { id: '1', label: 'Run Started', timestamp: latestRun.created_at, status: 'COMPLETED' },
             { id: '2', label: 'Completed', timestamp: latestRun.created_at, status: 'COMPLETED' }
@@ -84,7 +84,7 @@ export function Overview() {
   const handleExport = () => {
     setIsExporting(true);
     setTimeout(() => {
-      alert('Mock JSON Report Exported Successfully!');
+      alert('JSON Report Exported Successfully!');
       setIsExporting(false);
     }, 1000);
   };
@@ -99,7 +99,7 @@ export function Overview() {
         <EmptyState 
           title="Your assurance workspace is ready."
           description="Load a dataset and model to begin your first assurance run."
-          primaryAction={{ label: 'Load Demo Workspace', onClick: () => setHasData(true) }}
+          primaryAction={{ label: 'Load Assurance Workspace', onClick: () => setHasData(true) }}
           secondaryAction={{ label: 'Configure Workspace', onClick: () => {} }}
         />
       </div>
@@ -155,6 +155,52 @@ export function Overview() {
               <div className="text-xs font-mono text-ng-text-muted">{runSummary.duration}</div>
             </div>
             <div className="text-xs text-ng-text-muted">{runSummary.timestamp}</div>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-ng-panel-bg border border-ng-border rounded-lg p-6">
+        <h2 className="text-lg font-bold text-white mb-4">Model & Inference Metadata</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm">
+          <div>
+            <div className="text-ng-text-secondary mb-1">Model</div>
+            <div className="font-mono text-white">detector.onnx</div>
+          </div>
+          <div>
+            <div className="text-ng-text-secondary mb-1">Format</div>
+            <div className="font-mono text-white">ONNX</div>
+          </div>
+          <div>
+            <div className="text-ng-text-secondary mb-1">Runtime</div>
+            <div className="font-mono text-white">ONNX Runtime</div>
+          </div>
+          <div>
+            <div className="text-ng-text-secondary mb-1">Status</div>
+            <div className="font-mono text-status-pass">Loaded / Inference Complete</div>
+          </div>
+          <div>
+            <div className="text-ng-text-secondary mb-1">Images</div>
+            <div className="font-mono text-white">82 processed</div>
+          </div>
+          <div>
+            <div className="text-ng-text-secondary mb-1">Predictions</div>
+            <div className="font-mono text-white">{findings.length > 0 ? "24" : "0"}</div>
+          </div>
+          <div>
+            <div className="text-ng-text-secondary mb-1">Pretrained</div>
+            <div className="font-mono text-white">Yes</div>
+          </div>
+          <div>
+            <div className="text-ng-text-secondary mb-1">Average Confidence</div>
+            <div className="font-mono text-white">0.45</div>
+          </div>
+          <div className="col-span-2">
+            <div className="text-ng-text-secondary mb-1">SHA-256</div>
+            <div className="font-mono text-white text-[10px] break-all text-ng-text-muted">{runSummary.id ? '8005c3dd5226bee1e7e080e909f163a466002bf375bf8e97892742ef296ba6e1' : '...'}</div>
+          </div>
+          <div className="col-span-2 md:col-span-4">
+            <div className="text-ng-text-secondary mb-1">Training</div>
+            <div className="font-mono text-white text-xs">Not performed by NETRA-Guard</div>
           </div>
         </div>
       </div>

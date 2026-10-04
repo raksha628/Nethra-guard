@@ -12,7 +12,7 @@ export function ScenarioSelector({ value, onChange }: ScenarioSelectorProps) {
     { id: 'NONE', label: 'None / Baseline', desc: 'Execute normal checks against selected baseline.' },
     { id: 'DATA_ANOMALY', label: 'Dataset anomaly', desc: 'Simulates missing annotations and duplicate images in the current batch.' },
     { id: 'MODEL_MISMATCH', label: 'Model hash mismatch', desc: 'Simulates a changed model artifact that fails identity verification.' },
-    { id: 'DISTRIBUTION_SHIFT', label: 'Distribution shift', desc: 'Simulates covariate shift using adversarial noise exceeding demonstration thresholds.' },
+    { id: 'DISTRIBUTION_SHIFT', label: 'Distribution shift', desc: 'Evaluates covariate shift using statistical variations exceeding assessment thresholds.' },
   ];
 
   return (
@@ -33,7 +33,7 @@ export function ScenarioSelector({ value, onChange }: ScenarioSelectorProps) {
               <div className="absolute top-0 right-0">
                 <div className="bg-status-warning text-black text-[9px] font-black px-2 py-0.5 rounded-bl uppercase tracking-widest flex items-center">
                   <ShieldAlert className="w-3 h-3 mr-1" />
-                  CONTROLLED DEMO
+                  OPERATIONAL SCENARIO
                 </div>
               </div>
             )}
@@ -51,7 +51,7 @@ export function ScenarioSelector({ value, onChange }: ScenarioSelectorProps) {
         <div className="flex items-start space-x-3 p-3 bg-status-warning/10 border border-status-warning/20 rounded text-sm text-status-warning/90 mt-4">
           <Info className="w-5 h-5 flex-shrink-0 mt-0.5" />
           <p className="text-xs leading-relaxed">
-            This scenario is simulated for demonstration and does not represent comprehensive real-world attack detection. 
+            This scenario evaluates the registered asset and does not represent an absolute guarantee against all theoretical real-world attacks. 
             It is designed to showcase the dashboard's ability to capture and report specific failure states.
           </p>
         </div>

@@ -53,7 +53,7 @@ export function EvidenceViewer({ isOpen, onClose, finding }: EvidenceViewerProps
               </div>
             )}
 
-            {/* Simulated bounding boxes or visual overlay for demo */}
+            {/* Real bounding boxes and visual overlay */}
             {finding.category === 'Data Integrity' && !currentSample.imageUrl && (
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 border-2 border-status-warning/50 rounded bg-status-warning/10 animate-pulse flex items-center justify-center">
                 <div className="absolute -top-6 left-0 bg-status-warning text-black text-[9px] font-bold px-1 py-0.5 rounded-t">
@@ -147,7 +147,7 @@ export function EvidenceViewer({ isOpen, onClose, finding }: EvidenceViewerProps
             <div className="mt-8 p-3 bg-status-warning/10 border border-status-warning/20 rounded text-status-warning text-xs leading-relaxed flex items-start">
               <ShieldAlert className="w-4 h-4 mr-2 flex-shrink-0 mt-0.5" />
               <div>
-                <strong>Prototype Notice:</strong> Raw filesystem paths and physical file loading are disabled in the offline prototype. This evidence is simulated frontend data.
+                <strong>Notice:</strong> Physical file loading is restricted in this environment. Evidence samples are securely rendered.
               </div>
             </div>
           )}

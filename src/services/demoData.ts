@@ -131,7 +131,7 @@ export const demoEvidence: EvidenceSample[] = [
   {
     id: 'ev_004',
     sampleId: 'img_847',
-    findingType: 'Data Poisoning Demo',
+    findingType: 'Data Poisoning Assessment',
     expectedLabel: 'Person',
     observedLabel: 'Stop Sign',
     score: '0.94',

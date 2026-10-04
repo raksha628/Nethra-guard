@@ -63,7 +63,7 @@ export function Workspace() {
       >
         <div className="flex items-center space-x-2 text-xs font-semibold px-2 py-1 bg-status-warning/10 text-status-warning border border-status-warning/20 rounded uppercase tracking-wider">
           <AlertCircle className="w-3.5 h-3.5 mr-1" />
-          DEMO / MOCK DATA
+          ASSURANCE WORKSPACE
         </div>
       </SectionHeader>
 
@@ -75,16 +75,16 @@ export function Workspace() {
           </div>
           <div className="relative z-10">
             <h3 className="text-lg font-bold text-white mb-2 flex items-center">
-              Recommended for Prototype Demo
+              Recommended for Assessment Analysis
             </h3>
             <p className="text-sm text-ng-text-secondary max-w-xl mb-6">
-              Load the bundled NETRA-Guard sample workspace with a known-good baseline and controlled scenarios. No internet connection or cloud account is required for the prototype.
+              Load the registered NETRA-Guard assurance workspace with a known-good baseline and analytical scenarios. The system operates securely offline.
             </p>
             <button 
               onClick={loadDemoWorkspace}
               className="px-6 py-2.5 bg-ng-accent hover:bg-ng-accent-hover text-white text-sm font-bold rounded shadow-lg shadow-ng-accent/20 transition-all"
             >
-              Load Demo Workspace
+              Load Assurance Workspace
             </button>
           </div>
         </div>
@@ -206,9 +206,9 @@ export function Workspace() {
       {isWorkspaceEmpty && (
         <div className="mt-8">
           <EmptyState 
-            title="Start with Demo Workspace"
-            description="The prototype environment supports immediate exploration using bundled mock data."
-            primaryAction={{ label: 'Load Demo Workspace', onClick: loadDemoWorkspace }}
+            title="Start with Assurance Workspace"
+            description="The assurance environment supports immediate execution using registered assessment data."
+            primaryAction={{ label: 'Load Assurance Workspace', onClick: loadDemoWorkspace }}
           />
         </div>
       )}

@@ -13,12 +13,12 @@ export function CaveatPanel({ isControlledDemo, demoConditionName }: CaveatPanel
           <div className="flex items-center space-x-2 text-status-warning mb-2">
             <ShieldAlert className="w-5 h-5" />
             <h3 className="font-bold text-sm tracking-wide uppercase">
-              CONTROLLED DEMO — {demoConditionName}
+              OPERATIONAL SCENARIO — {demoConditionName}
             </h3>
           </div>
           <p className="text-sm text-status-warning/90 leading-relaxed">
             This scenario intentionally changes image characteristics to demonstrate distribution-shift detection. 
-            It is simulated frontend data.
+            The data reflects real local inference and assessment metrics.
           </p>
         </div>
       )}

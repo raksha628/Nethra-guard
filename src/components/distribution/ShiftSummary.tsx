@@ -52,7 +52,7 @@ export function ShiftSummary({ context }: { context: DistributionContext }) {
           </div>
         </div>
         <div className="bg-black/30 p-4 rounded-lg border border-white/5">
-          <div className="text-xs text-ng-text-muted uppercase tracking-wider mb-1">Demonstration Threshold</div>
+          <div className="text-xs text-ng-text-muted uppercase tracking-wider mb-1">Assessment Threshold</div>
           <div className="text-2xl font-mono text-white font-bold">{context.threshold.toFixed(3)}</div>
         </div>
       </div>

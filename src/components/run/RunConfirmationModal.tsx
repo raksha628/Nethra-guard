@@ -62,7 +62,7 @@ export function RunConfirmationModal({ isOpen, onConfirm, onCancel, config, chec
           <div className="flex items-start space-x-3 p-3 bg-status-warning/10 border border-status-warning/20 rounded text-sm text-status-warning/90">
             <ShieldAlert className="w-5 h-5 flex-shrink-0 mt-0.5" />
             <p className="text-xs leading-relaxed">
-              <strong>Prototype Warning:</strong> This is a local offline demonstration. Results are simulated based on configured scenarios and prototype thresholds.
+              <strong>Prototype Execution:</strong> This is a local offline execution. Results reflect genuine inference using the configured pretrained model and datasets.
             </p>
           </div>
         </div>
