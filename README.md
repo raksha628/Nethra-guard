@@ -372,3 +372,14 @@ Export JSON Report
 ```
 
 Ultimately, it must successfully detect dataset anomalies, model hash mismatches, and distribution shifts, alongside baseline comparison, provenance tracking, evidence-backed findings, and JSON reporting.
+
+ # #   D a t a s e t   R o l e s 
+ N E T R A - G u a r d   e x p l i c i t l y   d i s t i n g u i s h e s   b e t w e e n   t w o   f o u n d a t i o n a l   d a t a s e t   c a t e g o r i e s : 
+ 
+ # # #   1 .   A s s u r a n c e   D a t a s e t 
+ L o c a t e d   i n   ` w o r k s p a c e / s y n t h e t i c _ c v / ` .   A   c o n t r o l l e d ,   s t r i c t l y   s y n t h e t i c   d a t a s e t   c o m p o s e d   o f   g e o m e t r i c   p r i m i t i v e s .   U s e d   e x c l u s i v e l y   f o r   v e r i f y i n g   t h e   a s s u r a n c e   p i p e l i n e   i t s e l f   ( D a t a   I n t e g r i t y   c h e c k s ,   H a s h   P r o v e n a n c e ,   M a t h e m a t i c a l   D i s t r i b u t i o n   S h i f t s ,   M a l f o r m e d   A n n o t a t i o n   v a l i d a t i o n ) .   I t   i s   N O T   v a l i d   e v i d e n c e   o f   s e m a n t i c   d e t e c t o r   a c c u r a c y . 
+ 
+ # # #   2 .   M o d e l   E v a l u a t i o n   D a t a s e t 
+ L o c a t e d   i n   ` w o r k s p a c e / m o d e l _ e v a l u a t i o n / ` .   T h i s   n a m e s p a c e   i s   s t r u c t u r a l l y   r e a d y   t o   a c c e p t   a   l e g i t i m a t e   p h o t o g r a p h i c   d a t a s e t   w i t h   c o m p a t i b l e   g r o u n d   t r u t h   ( C O C O   f o r m a t ) .   T h i s   d a t a s e t   m u s t   b e   p o p u l a t e d   m a n u a l l y   w i t h   g e n u i n e   i m a g e s   t o   c o m p u t e   s e m a n t i c   M o d e l   A c c u r a c y   m e t r i c s   ( P r e c i s i o n ,   R e c a l l ,   A P ,   m A P ) .   N E T R A - G u a r d   d o e s   N O T   c l a i m   d e f e n s e - s p e c i f i c   t r a i n i n g   o r   o p e r a t i o n a l   d e p l o y m e n t   c a p a b i l i t i e s   b a s e d   o n   p r e - t r a i n e d   o p e n - s o u r c e   w e i g h t s . 
+  
+ 

@@ -1,216 +1,120 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SectionHeader } from '../../components/ui/SectionHeader';
-import { CheckSelector } from '../../components/run/CheckSelector';
-import { ThresholdControl } from '../../components/run/ThresholdControl';
-import { ScenarioSelector } from '../../components/run/ScenarioSelector';
-import { ConfigurationSummary } from '../../components/run/ConfigurationSummary';
-import { JsonViewer } from '../../components/run/JsonViewer';
-import { RunConfirmationModal } from '../../components/run/RunConfirmationModal';
-import type { AssuranceCheckConfig, RunConfigurationState } from '../../types';
 
-const CHECK_CONFIGS: AssuranceCheckConfig[] = [
-  {
-    id: 'chk_data',
-    name: 'DATA INTEGRITY',
-    description: 'Validate dataset structure, labels, readability, duplicates and basic anomaly conditions.',
-    enabled: true,
-    icon: 'database',
-    summary: 'Mode: Strict | DupThresh: 0.95 | AnnCheck: Enabled'
-  },
-  {
-    id: 'chk_model',
-    name: 'MODEL INTEGRITY',
-    description: 'Verify model artifact identity and compare against registered baseline.',
-    enabled: true,
-    icon: 'box',
-    summary: 'Hashing: SHA-256 | Target: yolov8_vehicle_detect.pt'
-  },
-  {
-    id: 'chk_shift',
-    name: 'DISTRIBUTION SHIFT',
-    description: 'Compare reference and current image batches using configured assessment metrics.',
-    enabled: true,
-    icon: 'bar-chart',
-    summary: 'Metric: KS-Test | RefBatch: rn_7e81b0'
-  },
-  {
-    id: 'chk_comp',
-    name: 'ASSURANCE COMPARATOR',
-    description: 'Compare current findings and metrics against a compatible baseline run.',
-    enabled: true,
-    icon: 'git-compare',
-    summary: 'Baseline: rn_7e81b0 | Strict Compatibility: True'
-  }
-];
-
-export function RunAssurance() {
+export function RunConfiguration() {
   const navigate = useNavigate();
   
-  const [config, setConfig] = useState<RunConfigurationState>({
-    version: '1.2.0-rc',
-    checks: {
-      chk_data: true,
-      chk_model: true,
-      chk_shift: true,
-      chk_comp: true,
-    },
-    thresholds: {
-      shiftMetric: 'KS-Test',
-      shiftThreshold: 0.05,
-      duplicateThreshold: 0.95,
-      annotationValidation: true,
-      baselineCompatibility: true,
-    },
-    scenario: 'NONE'
-  });
-
-  const [showJson, setShowJson] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
-
-  // Checking if workspace is ready
-  const isWorkspaceReady = true;
-
-  const handleToggleCheck = (id: string, enabled: boolean) => {
-    setConfig(prev => ({
-      ...prev,
-      checks: { ...prev.checks, [id]: enabled }
-    }));
-  };
-
-  const handleThresholdChange = (key: keyof RunConfigurationState['thresholds'], value: any) => {
-    setConfig(prev => ({
-      ...prev,
-      thresholds: { ...prev.thresholds, [key]: value }
-    }));
-  };
+  const [selectedDataset, setSelectedDataset] = useState('model_evaluation');
+  const [isExecuting, setIsExecuting] = useState(false);
 
   const handleStartRun = () => {
-    setShowConfirm(false);
-    navigate('/run-progress');
+    setIsExecuting(true);
+    // Move to next step or mock start
+    setTimeout(() => {
+      navigate('/run-progress');
+    }, 500);
   };
 
   return (
-    <div className="space-y-8 max-w-[1400px] pb-12">
+    <div className="space-y-8 max-w-[1200px] pb-12">
       <SectionHeader 
-        title="Run Assurance"
-        description="Configure and execute a reproducible assurance run."
+        title="Execute Assurance Run"
+        description="Configure your dataset and model settings for the assurance pipeline."
       />
 
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-        <div className="xl:col-span-2 space-y-10">
-          
-          {/* SECTION 2 — CHECK SELECTION */}
-          <section>
-            <h2 className="text-lg font-bold text-white mb-4">Check Selection</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {CHECK_CONFIGS.map(check => (
-                <CheckSelector 
-                  key={check.id} 
-                  check={{...check, enabled: config.checks[check.id]}} 
-                  onToggle={handleToggleCheck} 
-                />
-              ))}
+      <div className="grid grid-cols-1 gap-8">
+        {/* Step 1: Dataset */}
+        <section className="bg-ng-panel-bg border border-ng-border rounded-lg p-6">
+          <div className="flex items-center mb-6">
+            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/10 text-white font-bold mr-4">1</div>
+            <h2 className="text-lg font-bold text-white">Select Dataset</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ml-12">
+            <div 
+              onClick={() => setSelectedDataset('assurance')}
+              className={`border rounded-lg p-5 cursor-pointer transition-colors ${selectedDataset === 'assurance' ? 'bg-ng-accent/10 border-ng-accent' : 'bg-black/20 border-white/10 hover:border-white/30'}`}
+            >
+              <h3 className="text-sm font-bold text-white mb-2">Assurance Dataset</h3>
+              <div className="text-xs text-status-warning font-mono mb-2">workspace/synthetic_cv/</div>
+              <p className="text-xs text-ng-text-secondary leading-relaxed">
+                Synthetic controlled data used for testing pipeline integrity, distribution shift, and anomaly detection. Not for semantic evaluation.
+              </p>
             </div>
-          </section>
-
-          {/* SECTION 3 — THRESHOLDS */}
-          <section>
-            <h2 className="text-lg font-bold text-white mb-4">Analysis Thresholds</h2>
-            <div className="bg-ng-panel-bg border border-ng-border rounded-lg p-6 space-y-8">
-              
-              <div>
-                <h3 className="text-sm font-bold text-white mb-3">Distribution Shift</h3>
-                <ThresholdControl 
-                  label="Shift Metric" 
-                  value={config.thresholds.shiftMetric}
-                  type="select"
-                  options={[{label: 'KS-Test', value: 'KS-Test'}, {label: 'MMD', value: 'MMD'}, {label: 'Wasserstein', value: 'Wasserstein'}]}
-                  onChange={(v) => handleThresholdChange('shiftMetric', v)}
-                />
-                <ThresholdControl 
-                  label="D-value Threshold" 
-                  value={config.thresholds.shiftThreshold}
-                  type="number"
-                  warning={true}
-                  description="Maximum allowed distance before flagging a distribution shift."
-                  onChange={(v) => handleThresholdChange('shiftThreshold', v)}
-                />
-              </div>
-
-              <div>
-                <h3 className="text-sm font-bold text-white mb-3">Dataset Anomaly</h3>
-                <ThresholdControl 
-                  label="Duplicate SSIM Threshold" 
-                  value={config.thresholds.duplicateThreshold}
-                  type="number"
-                  warning={true}
-                  description="Structural similarity threshold for marking images as exact duplicates."
-                  onChange={(v) => handleThresholdChange('duplicateThreshold', v)}
-                />
-                <ThresholdControl 
-                  label="Strict Annotation Validation" 
-                  value={config.thresholds.annotationValidation}
-                  type="toggle"
-                  description="Fail data integrity check if any unmatched annotations are detected."
-                  onChange={(v) => handleThresholdChange('annotationValidation', v)}
-                />
-              </div>
-
-            </div>
-          </section>
-
-          {/* SECTION 5 — CONTROLLED SCENARIO */}
-          <section>
-            <h2 className="text-lg font-bold text-white mb-4">Assessment Scenario</h2>
-            <ScenarioSelector 
-              value={config.scenario} 
-              onChange={(v) => setConfig(prev => ({...prev, scenario: v}))} 
-            />
-          </section>
-        </div>
-
-        <div className="xl:col-span-1 space-y-6">
-          {/* SECTION 1 — RUN CONTEXT & SECTION 4 — REPRODUCIBILITY */}
-          <div className="sticky top-6 space-y-6">
-            <ConfigurationSummary 
-              config={config} 
-              checkConfigs={CHECK_CONFIGS}
-              onViewJson={() => setShowJson(true)}
-            />
-
-            {/* SECTION 6 — ACTION */}
-            <div className="bg-ng-panel-bg border border-ng-border rounded-lg p-5 space-y-3">
-              <button 
-                onClick={() => setShowConfirm(true)}
-                disabled={!isWorkspaceReady}
-                className="w-full px-4 py-3 bg-ng-accent hover:bg-ng-accent-hover disabled:bg-ng-border disabled:text-ng-text-muted text-white text-sm font-bold rounded transition-colors shadow-lg shadow-ng-accent/20"
-              >
-                Start Assurance Run
-              </button>
-              <button 
-                className="w-full px-4 py-2 bg-white/5 hover:bg-white/10 text-white text-sm font-medium rounded transition-colors border border-white/10"
-              >
-                Save Configuration
-              </button>
+            
+            <div 
+              onClick={() => setSelectedDataset('model_evaluation')}
+              className={`border rounded-lg p-5 cursor-pointer transition-colors ${selectedDataset === 'model_evaluation' ? 'bg-ng-accent/10 border-ng-accent' : 'bg-black/20 border-white/10 hover:border-white/30'}`}
+            >
+              <h3 className="text-sm font-bold text-white mb-2">Model Evaluation Dataset</h3>
+              <div className="text-xs text-status-pass font-mono mb-2">Ultralytics COCO128</div>
+              <p className="text-xs text-ng-text-secondary leading-relaxed">
+                Real photographic data with ground-truth COCO JSON annotations. Used for genuine semantic model evaluation.
+              </p>
             </div>
           </div>
+        </section>
+
+        {/* Step 2: Model */}
+        <section className="bg-ng-panel-bg border border-ng-border rounded-lg p-6">
+          <div className="flex items-center mb-6">
+            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/10 text-white font-bold mr-4">2</div>
+            <h2 className="text-lg font-bold text-white">Select Model</h2>
+          </div>
+          <div className="ml-12 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className={`border rounded-lg p-5 transition-colors bg-ng-accent/10 border-ng-accent`}>
+              <div className="flex justify-between items-start">
+                <div>
+                  <h3 className="text-sm font-bold text-white mb-1">YOLOv8 Nano ONNX</h3>
+                  <div className="text-xs text-ng-text-muted font-mono mb-3">detector.onnx</div>
+                </div>
+                <div className="text-[10px] bg-ng-accent/20 text-ng-accent px-2 py-1 rounded">PRE-TRAINED</div>
+              </div>
+              <p className="text-xs text-ng-text-secondary">
+                Real pretrained general-purpose detector. Evaluated via genuine ONNX Runtime offline inference.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Step 3: Review Configuration */}
+        <section className="bg-ng-panel-bg border border-ng-border rounded-lg p-6">
+          <div className="flex items-center mb-6">
+            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/10 text-white font-bold mr-4">3</div>
+            <h2 className="text-lg font-bold text-white">Review Configuration</h2>
+          </div>
+          <div className="ml-12 grid grid-cols-2 md:grid-cols-4 gap-6 bg-black/20 rounded border border-white/5 p-5">
+            <div>
+              <div className="text-xs text-ng-text-secondary mb-1">Input Dimensions</div>
+              <div className="text-sm font-mono text-white">640 × 640 RGB</div>
+            </div>
+            <div>
+              <div className="text-xs text-ng-text-secondary mb-1">Confidence Threshold</div>
+              <div className="text-sm font-mono text-white">0.25</div>
+            </div>
+            <div>
+              <div className="text-xs text-ng-text-secondary mb-1">NMS IoU</div>
+              <div className="text-sm font-mono text-white">0.45</div>
+            </div>
+            <div>
+              <div className="text-xs text-ng-text-secondary mb-1">Runtime</div>
+              <div className="text-sm font-mono text-white">ONNX Runtime</div>
+            </div>
+          </div>
+        </section>
+
+        {/* Execution */}
+        <div className="flex justify-end pt-4">
+          <button
+            onClick={handleStartRun}
+            disabled={isExecuting}
+            className="px-8 py-4 bg-ng-accent hover:bg-ng-accent-hover text-white font-bold rounded-lg transition-colors flex items-center shadow-lg disabled:opacity-50"
+          >
+            {isExecuting ? 'Starting Pipeline...' : 'Step 4: Execute Assurance Run'}
+          </button>
         </div>
+
       </div>
-
-      <JsonViewer 
-        isOpen={showJson} 
-        onClose={() => setShowJson(false)} 
-        config={config} 
-      />
-
-      <RunConfirmationModal 
-        isOpen={showConfirm}
-        onConfirm={handleStartRun}
-        onCancel={() => setShowConfirm(false)}
-        config={config}
-        checkConfigs={CHECK_CONFIGS}
-      />
     </div>
   );
 }

@@ -37,10 +37,10 @@ export function Evidence() {
              
              findingsMap.get(finding.id).evidenceSamples.push({
                 id: ev.id,
-                sampleId: ev.sample_ref,
-                evidenceType: ev.evidence_type,
-                imageUrl: null, 
-                score: ev.score,
+                sampleId: ev.sample_id,
+                evidenceType: 'image',
+                imageUrl: ev.asset_reference && ev.sample_id ? `http://localhost:8000/api/assets/${ev.asset_reference}/image/${ev.sample_id}` : null,
+                score: ev.observed_value,
                 fileHash: ev.metadata ? ev.metadata.hash : undefined
              });
           }

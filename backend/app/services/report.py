@@ -54,6 +54,21 @@ def build_report(db: Session, run: Run, comparator: dict[str, Any] | None = None
         "assets": [{"id": asset.id, "type": asset.type, "name": asset.original_name, "size_bytes": asset.size_bytes, "sha256": asset.sha256, "format": asset.format} for asset in assets],
         "dataset": summary.get("profile", {}),
         "model": summary.get("model", {}),
+        "model_evaluation": {
+            **summary.get("model", {}).get("semantic_evaluation", {
+                "dataset_role": "ASSURANCE",
+                "semantic_evaluation": "NOT_SUPPORTED",
+                "message": "Semantic evaluation is not supported for this dataset.",
+                "explanation": "The current dataset is designed for assurance testing and controlled distribution/integrity analysis rather than semantic detector benchmarking."
+            }),
+            "evaluation_configuration": {
+                "iou_thresholds": "0.50 to 0.95 at 0.05 increments",
+                "semantic_classes": list(settings.supported_classes),
+                "model_hash": summary.get("model", {}).get("artifact", {}).get("sha256", ""),
+                "dataset_hash": summary.get("model", {}).get("semantic_evaluation", {}).get("dataset_hash", "")
+            }
+        },
+        "interpretation": "COCO128 is a small, general-purpose development dataset. The results are not evidence of defence-specific model accuracy or operational performance.",
         "configuration": configuration.get("configuration", {}),
         "configuration_hash": run.configuration_hash,
         "executed_checks": executed,

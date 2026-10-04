@@ -46,6 +46,34 @@ def get_or_create_demo_workspace(db: Session) -> Workspace:
 def health() -> dict[str, object]:
     return {"status": "ok", "version": settings.version, "service": settings.app_name, "offline": True}
 
+import mimetypes
+from fastapi.responses import FileResponse
+
+@router.get("/assets/{asset_id}/image/{filename:path}")
+def get_evidence_image(asset_id: str, filename: str, db: DbSession):
+    if ".." in filename or filename.startswith("/") or filename.startswith("\\"):
+        raise HTTPException(status_code=400, detail="Path traversal forbidden")
+    
+    # We resolve the dataset directory from the asset logic
+    # The SIH prototype defines ds_coco128 and ds_demo_01.
+    if asset_id == "ds_coco128":
+        base_dir = settings.workspace_root / "model_evaluation" / "images"
+    elif asset_id == "ds_demo_01" or asset_id == "ds_synthetic":
+        base_dir = settings.workspace_root / "synthetic_cv" / "images"
+    else:
+        # Fallback to the generic database asset lookup if we registered it properly
+        asset = db.get(Asset, asset_id)
+        if not asset:
+            raise HTTPException(status_code=404, detail="Asset not found")
+        base_dir = Path(asset.safe_path).parent / "images"
+    
+    file_path = base_dir / filename
+    if not file_path.exists():
+        raise HTTPException(status_code=404, detail="Image not found")
+        
+    mime_type, _ = mimetypes.guess_type(file_path.name)
+    return FileResponse(file_path, media_type=mime_type or "image/jpeg")
+
 
 @router.get("/demo/workspace", response_model=DemoWorkspaceResponse)
 def demo_workspace(db: DbSession) -> DemoWorkspaceResponse:
@@ -237,6 +265,12 @@ def create_run(request: RunCreateRequest, db: DbSession) -> RunResponse:
             baseline_asset = db.get(Asset, workspace.baseline_model_asset_id) if workspace.baseline_model_asset_id else None
             baseline_path = _asset_path(baseline_asset) if baseline_asset else None
             model_summary, model_generated = run_model_integrity(model, _asset_path(model), baseline_asset, baseline_path, workspace, request.configuration)
+            
+            from app.config import MODEL_EVALUATION_DATASET
+            from app.services.model_evaluation import evaluate_model_behaviour
+            eval_summary = evaluate_model_behaviour(_asset_path(model), MODEL_EVALUATION_DATASET)
+            model_summary["semantic_evaluation"] = eval_summary.metrics["semantic"]
+            
             check_statuses["MODEL_INTEGRITY"] = "WARNING" if model_generated else "PASS"
         if shift_selected and dataset and current_dataset:
             shift_summary, shift_finding = run_distribution_shift(_asset_path(dataset), _asset_path(current_dataset), request.configuration, dataset.original_name, current_dataset.original_name)
@@ -277,7 +311,7 @@ def create_run(request: RunCreateRequest, db: DbSession) -> RunResponse:
                     expected_value=evidence_item.expected_value,
                     observed_value=evidence_item.observed_value,
                     reference=evidence_item.reference,
-                    asset_reference=item_asset.original_name if item_asset else "",
+                    asset_reference=item_asset.id if item_asset else "",
                     details_json=json.dumps(getattr(evidence_item, "details", {})),
                 )
                 db.add(evidence)
@@ -358,13 +392,87 @@ def get_evidence(run_id: str, db: DbSession) -> list[EvidenceResponse]:
 
 @router.get("/runs/{run_id}/evidence/{evidence_id}", response_model=EvidenceResponse)
 def get_evidence_item(run_id: str, evidence_id: str, db: DbSession) -> EvidenceResponse:
-    if db.get(Run, run_id) is None:
+    run = db.get(Run, run_id)
+    if run is None:
         raise HTTPException(status_code=404, detail="Run not found")
     item = db.get(Evidence, evidence_id)
     finding = db.get(Finding, item.finding_id) if item else None
     if item is None or finding is None or finding.run_id != run_id:
         raise HTTPException(status_code=404, detail="Evidence not found")
-    return EvidenceResponse(id=item.id, finding_id=item.finding_id, sample_id=item.sample_id, metric=item.metric, expected_value=item.expected_value, observed_value=item.observed_value, reference=item.reference, asset_reference=item.asset_reference, details=json.loads(item.details_json or "{}"))
+
+    details = json.loads(item.details_json or "{}")
+    
+    # 1. Provide Provenance info
+    model = db.get(Asset, run.model_asset_id) if run.model_asset_id else None
+    dataset = db.get(Asset, item.asset_reference) if item.asset_reference else None
+    if not dataset and run.current_dataset_asset_id:
+        dataset = db.get(Asset, run.current_dataset_asset_id)
+
+    details["provenance"] = {
+        "finding": finding.title,
+        "evidence": item.metric,
+        "dataset": dataset.original_name if dataset else item.asset_reference,
+        "model": model.original_name if model else "N/A",
+        "run": run_id
+    }
+
+    # 2. Extract Predictions & Ground Truth for the single image if possible
+    details["predictions"] = []
+    details["ground_truth"] = []
+    
+    try:
+        if dataset and model and item.sample_id:
+            dataset_path = Path(dataset.safe_path).parent if dataset.type == "DATASET" else settings.workspace_root / "model_evaluation"
+            if dataset.id == "ds_coco128":
+                dataset_path = settings.workspace_root / "model_evaluation"
+            elif dataset.id == "ds_demo_01" or dataset.id == "ds_synthetic":
+                dataset_path = settings.workspace_root / "synthetic_cv"
+
+            # Parse COCO GT
+            ann_path = dataset_path / "annotations" / "instances.json"
+            if ann_path.exists():
+                with open(ann_path, "r") as f:
+                    coco = json.load(f)
+                img = next((i for i in coco.get("images", []) if i["file_name"] == item.sample_id), None)
+                if img:
+                    cats = {c["id"]: c["name"] for c in coco.get("categories", [])}
+                    anns = [a for a in coco.get("annotations", []) if a["image_id"] == img["id"]]
+                    for a in anns:
+                        x, y, w, h = a["bbox"]
+                        details["ground_truth"].append({
+                            "class": cats.get(a["category_id"], "unknown"),
+                            "bbox": [x, y, x + w, y + h]
+                        })
+
+            # Get Model Predictions
+            from app.services.model_adapter import select_adapter, EvaluationSample
+            model_path = Path(model.safe_path)
+            if model_path.exists():
+                adapter = select_adapter(model_path)
+                adapter.load(model_path)
+                sample = EvaluationSample(sample_id=item.sample_id)
+                preds = adapter.run_inference([sample], dataset_images_path=dataset_path / "images")
+                for p in preds:
+                    details["predictions"].append({
+                        "class": p.class_name,
+                        "confidence": p.confidence,
+                        "bbox": p.bbox
+                    })
+    except Exception as e:
+        import logging
+        logging.error(f"Failed to load image dynamic predictions: {e}")
+
+    return EvidenceResponse(
+        id=item.id,
+        finding_id=item.finding_id,
+        sample_id=item.sample_id,
+        metric=item.metric,
+        expected_value=item.expected_value,
+        observed_value=item.observed_value,
+        reference=item.reference,
+        asset_reference=item.asset_reference,
+        details=details
+    )
 
 
 @router.get("/runs/{run_id}/compare")

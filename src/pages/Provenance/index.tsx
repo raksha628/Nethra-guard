@@ -84,7 +84,7 @@ export function Provenance() {
     <div className="space-y-8 max-w-[1400px] pb-12">
       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
         <SectionHeader 
-          title="Provenance Ledger"
+          title="Assurance Provenance"
           description="Trace assurance runs, assets, configurations and evidence history."
         />
         <button 
@@ -94,6 +94,16 @@ export function Provenance() {
           <Download className="w-4 h-4 mr-2" />
           Export Provenance
         </button>
+      </div>
+
+      <div className="bg-ng-panel-bg border border-ng-border rounded-lg p-4 flex flex-wrap items-center justify-center gap-y-2 text-xs font-mono font-medium text-ng-text-secondary tracking-widest">
+        <span className="text-white">DATASET</span> <span className="mx-2 text-ng-border">→</span> 
+        <span className="text-white">MODEL</span> <span className="mx-2 text-ng-border">→</span> 
+        <span className="text-white">CONFIGURATION</span> <span className="mx-2 text-ng-border">→</span> 
+        <span className="text-white">RUN</span> <span className="mx-2 text-ng-border">→</span> 
+        <span className="text-white">FINDINGS</span> <span className="mx-2 text-ng-border">→</span> 
+        <span className="text-ng-accent">EVIDENCE</span> <span className="mx-2 text-ng-border">→</span> 
+        <span className="text-white">REPORT</span>
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">

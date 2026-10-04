@@ -109,3 +109,30 @@ def test_full_demo_assurance_workflow(client) -> None:
     assert report["report_hash"] == canonical_hash(report["report"])
     assert report["report"]["configuration_hash"]
     assert report["report"]["provenance"]["verification"]["status"] == "VALID"
+
+def test_evidence_image_path_traversal(client):
+    response = client.get('/api/assets/ds_coco128/image/..%2F..%2Fetc%2Fpasswd')
+    assert response.status_code == 400
+
+def test_evidence_image_missing_asset(client):
+    response = client.get('/api/assets/invalid_asset/image/test.jpg')
+    assert response.status_code == 404
+
+def test_evidence_image_missing_image(client):
+    response = client.get('/api/assets/ds_coco128/image/does_not_exist.jpg')
+    assert response.status_code == 404
+
+def test_evidence_image_valid(client):
+    from app.config import settings
+    import os
+    img_dir = settings.workspace_root / 'model_evaluation' / 'images'
+    img_dir.mkdir(parents=True, exist_ok=True)
+    img_path = img_dir / 'test_api_image.jpg'
+    img_path.write_bytes(b'dummy image data')
+    
+    response = client.get('/api/assets/ds_coco128/image/test_api_image.jpg')
+    assert response.status_code == 200
+    assert response.headers['content-type'] == 'image/jpeg'
+    assert response.content == b'dummy image data'
+    
+    os.remove(img_path)

@@ -7,6 +7,7 @@ const INITIAL_STAGES: RunStage[] = [
   { id: 's2', name: 'Data Integrity', description: 'Validating dataset structure, labels, readability, and duplicates.', status: 'WAITING' },
   { id: 's3', name: 'Model Integrity', description: 'Verifying model artifact identity against registered baseline.', status: 'WAITING' },
   { id: 's4', name: 'Distribution Shift', description: 'Comparing reference and current image batches.', status: 'WAITING' },
+  { id: 's5', name: 'Semantic Evaluation', description: 'Calculating Precision, Recall, and mAP against ground-truth dataset.', status: 'WAITING' },
   { id: 's6', name: 'Recording Provenance', description: 'Cryptographically logging execution steps to the local ledger.', status: 'WAITING' },
   { id: 's7', name: 'Finalizing', description: 'Generating reports and cleaning up temporary assets.', status: 'WAITING' }
 ];
@@ -50,6 +51,7 @@ export function useRunProgress(initialScenario: string, skipShift: boolean = fal
           st[1].status = 'RUNNING'; st[1].startTime = getCurrentTime();
           st[2].status = 'RUNNING'; st[2].startTime = getCurrentTime();
           st[3].status = 'RUNNING'; st[3].startTime = getCurrentTime();
+          st[4].status = 'RUNNING'; st[4].startTime = getCurrentTime();
           return { ...prev, stages: st, progressPercentage: 50 };
         });
 
@@ -70,6 +72,7 @@ export function useRunProgress(initialScenario: string, skipShift: boolean = fal
           st[3].status = 'COMPLETE'; st[3].completionTime = getCurrentTime();
           st[4].status = 'COMPLETE'; st[4].completionTime = getCurrentTime();
           st[5].status = 'COMPLETE'; st[5].completionTime = getCurrentTime();
+          st[6].status = 'COMPLETE'; st[6].completionTime = getCurrentTime();
           return {
             ...prev,
             runId: runRes.id,

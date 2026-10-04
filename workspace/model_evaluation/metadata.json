@@ -1,0 +1,19 @@
+{
+  "dataset_name": "Ultralytics COCO128",
+  "dataset_role": "model_evaluation",
+  "source": "https://github.com/ultralytics/assets/releases/download/v0.0.0/coco128.zip",
+  "original_dataset": "Microsoft COCO",
+  "format": "COCO",
+  "source_annotation_format": "YOLO",
+  "image_count": 128,
+  "annotation_count": 929,
+  "class_count": 80,
+  "version": "1.0",
+  "license": "CC0 1.0 Universal",
+  "purpose": "development semantic model evaluation",
+  "limitations": [
+    "COCO128 is a small development dataset",
+    "COCO128 is not a defence-specific dataset",
+    "Results must not be interpreted as production or defence-operational accuracy"
+  ]
+}

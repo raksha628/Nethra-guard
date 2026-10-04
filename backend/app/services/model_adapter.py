@@ -36,7 +36,7 @@ class ModelMetadata:
 class ModelAdapter(Protocol):
     def load(self, model_path: Path) -> None: ...
     def validate(self, model_path: Path) -> list[str]: ...
-    def run_inference(self, samples: list[EvaluationSample]) -> list[NormalizedPrediction]: ...
+    def run_inference(self, samples: list[EvaluationSample], dataset_images_path: Path | None = None) -> list[NormalizedPrediction]: ...
     def metadata(self) -> ModelMetadata: ...
 
 
@@ -63,7 +63,7 @@ class DeterministicFallbackAdapter:
             return ["model file is empty"]
         return []
 
-    def run_inference(self, samples: list[EvaluationSample]) -> list[NormalizedPrediction]:
+    def run_inference(self, samples: list[EvaluationSample], dataset_images_path: Path | None = None) -> list[NormalizedPrediction]:
         if not self.model_hash:
             raise RuntimeError("model must be loaded before inference")
         predictions: list[NormalizedPrediction] = []
@@ -84,6 +84,7 @@ class DeterministicFallbackAdapter:
 
 class ONNXModelAdapter:
     def __init__(self) -> None:
+        from app.config import MODEL_CONFIG
         self.model_path: Path | None = None
         self.model_hash = ""
         self.session = None
@@ -92,11 +93,9 @@ class ONNXModelAdapter:
         self.input_dtype = ""
         self.output_names = []
         self.output_shapes = []
+        self.config = MODEL_CONFIG
         self.class_mapping = {
-            0: 'person', 1: 'vehicle', 2: 'vehicle', 3: 'vehicle',
-            4: 'vehicle', 5: 'vehicle', 6: 'vehicle', 7: 'vehicle',
-            8: 'vehicle', 73: 'equipment', 24: 'equipment', 26: 'equipment',
-            # Map a few more things just in case
+            k: v.target for k, v in self.config.class_mapping.items() if v.status == "mapped"
         }
 
     def load(self, model_path: Path) -> None:
@@ -155,8 +154,10 @@ class ONNXModelAdapter:
         
         return img_tensor, orig_w, orig_h
 
-    def _postprocess(self, output, orig_w, orig_h, conf_thres=0.01, iou_thres=0.45):
+    def _postprocess(self, output, orig_w, orig_h, conf_thres=None, iou_thres=None):
         import numpy as np
+        if conf_thres is None: conf_thres = self.config.confidence_threshold
+        if iou_thres is None: iou_thres = self.config.nms_threshold
         
         # YOLOv8 output: [1, 84, 8400]
         if len(output.shape) != 3 or output.shape[1] < 4:
@@ -245,22 +246,26 @@ class ONNXModelAdapter:
                 
         return results
 
-    def run_inference(self, samples: list[EvaluationSample]) -> list[NormalizedPrediction]:
+    def run_inference(self, samples: list[EvaluationSample], dataset_images_path: Path | None = None) -> list[NormalizedPrediction]:
         if not self.session:
             raise RuntimeError("model must be loaded before inference")
             
-        from app.services.file_storage import get_workspace_dir
+        from app.config import settings
         
-        workspace_dir = get_workspace_dir()
+        workspace_dir = settings.workspace_root
         
         predictions = []
         for sample in samples:
-            image_path = workspace_dir / "synthetic_cv" / "evaluation" / "images" / sample.sample_id
-            if not image_path.exists():
-                # Try clean baseline
-                image_path = workspace_dir / "synthetic_cv" / "reference" / "images" / sample.sample_id
+            if dataset_images_path:
+                image_path = dataset_images_path / sample.sample_id
+            else:
+                image_path = workspace_dir / "synthetic_cv" / "evaluation" / "images" / sample.sample_id
                 if not image_path.exists():
-                    continue
+                    # Try clean baseline
+                    image_path = workspace_dir / "synthetic_cv" / "reference" / "images" / sample.sample_id
+                    
+            if not image_path.exists():
+                continue
                     
             try:
                 img_tensor, orig_w, orig_h = self._preprocess(image_path)
@@ -286,6 +291,7 @@ class ONNXModelAdapter:
         return predictions
 
     def metadata(self) -> ModelMetadata:
+        from app.config import ASSURANCE_DATASET
         details = {
             "input_name": self.input_name,
             "input_shape": self.input_shape,
@@ -294,7 +300,11 @@ class ONNXModelAdapter:
             "output_shapes": self.output_shapes,
             "class_mapping": self.class_mapping,
             "preprocessing": "Resize 640x640, RGB, float32 [0,1], CHW",
-            "postprocessing": "NMS, threshold=0.01, iou=0.45"
+            "postprocessing": f"NMS, threshold={self.config.confidence_threshold}, iou={self.config.nms_threshold}",
+            "confidence_threshold": self.config.confidence_threshold,
+            "nms_threshold": self.config.nms_threshold,
+            "dataset_name": ASSURANCE_DATASET.name,
+            "dataset_supports_semantic": ASSURANCE_DATASET.supports_semantic_evaluation
         }
         return ModelMetadata(
             adapter="onnxruntime",
