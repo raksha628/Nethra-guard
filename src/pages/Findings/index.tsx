@@ -1,14 +1,45 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { SectionHeader } from '../../components/ui/SectionHeader';
 import { FindingsFilterBar } from '../../components/findings/FindingsFilterBar';
 import { FindingsTable } from '../../components/findings/FindingsTable';
 import { FindingDetailDrawer } from '../../components/findings/FindingDetailDrawer';
-import { comprehensiveDemoFindings } from '../../services/demoFindings';
+import { api } from '../../services/api';
 import type { ComprehensiveFinding, FindingCategory, FindingSeverity, FindingStatus } from '../../types';
 
 export function Findings() {
-  // Use state to allow local mutation for demo purposes
-  const [localFindings, setLocalFindings] = useState<ComprehensiveFinding[]>(comprehensiveDemoFindings);
+  const [localFindings, setLocalFindings] = useState<ComprehensiveFinding[]>([]);
+
+  useEffect(() => {
+    async function loadFindings() {
+      try {
+        const runs = await api.getRuns();
+        if (runs && runs.length > 0) {
+          const latestRun = runs[0];
+          const raw = await api.getFindings(latestRun.id);
+          const mapped: ComprehensiveFinding[] = raw.map((r: any) => ({
+            id: r.id,
+            category: r.category as FindingCategory,
+            severity: r.severity as FindingSeverity,
+            status: r.status as FindingStatus,
+            findingType: r.title,
+            description: r.description,
+            observed: r.observed_value,
+            threshold: r.threshold,
+            artifact: r.affected_asset,
+            runId: r.run_id,
+            timestamp: new Date().toISOString(),
+            testMethod: r.method,
+            limitations: r.limitations,
+            evidenceSamples: []
+          }));
+          setLocalFindings(mapped);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    loadFindings();
+  }, []);
 
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<FindingCategory | 'All'>('All');
