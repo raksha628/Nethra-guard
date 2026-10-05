@@ -1,9 +1,9 @@
-import bird from './previews/bird.webp';
-import motorcycle from './previews/motorcycle.webp';
-import car from './previews/car.webp';
+import tank from './previews/tank.jpg';
+import ship from './previews/ship.jpg';
+import jets from './previews/jets.jpg';
 
 export const fixtureImages = {
-  bird,
-  motorcycle,
-  car,
+  tank,
+  ship,
+  jets,
 };

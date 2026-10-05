@@ -21,8 +21,8 @@ export const comprehensiveDemoFindings: ComprehensiveFinding[] = [
     limitations: 'This prototype demonstrates deterministic duplicate detection on the configured dataset. It does not establish that the sample is maliciously poisoned.',
     remediation: 'Review affected samples and confirm whether duplicate content is expected. Purge exact duplicates if they bias the training split.',
     evidenceSamples: [
-      { id: 'ev_1', sampleId: 'bird.webp', expectedLabel: 'reference sample', observedLabel: 'Nuthatch in flight', fileHash: '8f91...f02b', score: '1.00', evidenceType: 'Bird', imageUrl: fixtureImages.bird },
-      { id: 'ev_2', sampleId: 'motorcycle.webp', expectedLabel: 'reference sample', observedLabel: 'Blue sport motorcycle', fileHash: 'a31c...91e4', score: '1.00', evidenceType: 'Motorcycle', imageUrl: fixtureImages.motorcycle }
+      { id: 'ev_1', sampleId: 'tank.jpg', expectedLabel: 'reference sample', observedLabel: 'Tank', fileHash: '8f91...f02b', score: '1.00', evidenceType: 'Tank', imageUrl: fixtureImages.tank },
+      { id: 'ev_2', sampleId: 'ship.jpg', expectedLabel: 'reference sample', observedLabel: 'Naval ship', fileHash: 'a31c...91e4', score: '1.00', evidenceType: 'Ship', imageUrl: fixtureImages.ship }
     ]
   },
   {
@@ -63,9 +63,9 @@ export const comprehensiveDemoFindings: ComprehensiveFinding[] = [
     limitations: 'This is a statistical measurement of distribution distance and does not guarantee model performance degradation or active adversarial attack.',
     remediation: 'Review the flagged batch for out-of-distribution characteristics. Consider retraining if the shift represents a permanent environmental change.',
     evidenceSamples: [
-      { id: 'ev_3', sampleId: 'car.webp', expectedLabel: 'reference sample', observedLabel: 'Yellow sports car', score: 0.1, evidenceType: 'Car', imageUrl: fixtureImages.car },
-      { id: 'ev_4', sampleId: 'bird.webp', expectedLabel: 'reference sample', observedLabel: 'Nuthatch in flight', score: 0.1, evidenceType: 'Bird', imageUrl: fixtureImages.bird },
-      { id: 'ev_5', sampleId: 'motorcycle.webp', expectedLabel: 'reference sample', observedLabel: 'Blue sport motorcycle', score: 0.1, evidenceType: 'Motorcycle', imageUrl: fixtureImages.motorcycle }
+      { id: 'ev_3', sampleId: 'jets.jpg', expectedLabel: 'reference sample', observedLabel: 'Fighter aircraft', score: 0.1, evidenceType: 'Aircraft', imageUrl: fixtureImages.jets },
+      { id: 'ev_4', sampleId: 'tank.jpg', expectedLabel: 'reference sample', observedLabel: 'Tank', score: 0.1, evidenceType: 'Tank', imageUrl: fixtureImages.tank },
+      { id: 'ev_5', sampleId: 'ship.jpg', expectedLabel: 'reference sample', observedLabel: 'Naval ship', score: 0.1, evidenceType: 'Ship', imageUrl: fixtureImages.ship }
     ]
   }
 ];

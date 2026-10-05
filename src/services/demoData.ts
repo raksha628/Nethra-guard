@@ -101,33 +101,33 @@ export const demoTimeline: TimelineEvent[] = [
 export const demoEvidence: EvidenceSample[] = [
   {
     id: 'ev_001',
-    sampleId: 'bird.webp',
-    findingType: 'Bird sample',
+    sampleId: 'tank.jpg',
+    findingType: 'Tank sample',
     expectedLabel: 'reference sample',
-    observedLabel: 'Nuthatch in flight',
+    observedLabel: 'Tank',
     score: '1.00',
     severity: 'WARNING',
-    imageUrl: fixtureImages.bird
+    imageUrl: fixtureImages.tank
   },
   {
     id: 'ev_002',
-    sampleId: 'motorcycle.webp',
-    findingType: 'Motorcycle sample',
+    sampleId: 'ship.jpg',
+    findingType: 'Ship sample',
     expectedLabel: 'reference sample',
-    observedLabel: 'Blue sport motorcycle',
+    observedLabel: 'Naval ship',
     score: '1.00',
     severity: 'WARNING',
-    imageUrl: fixtureImages.motorcycle
+    imageUrl: fixtureImages.ship
   },
   {
     id: 'ev_003',
-    sampleId: 'car.webp',
-    findingType: 'Car sample',
+    sampleId: 'jets.jpg',
+    findingType: 'Aircraft sample',
     expectedLabel: 'reference sample',
-    observedLabel: 'Yellow sports car',
+    observedLabel: 'Fighter aircraft',
     score: '0.10',
     severity: 'INFO',
-    imageUrl: fixtureImages.car
+    imageUrl: fixtureImages.jets
   }
 ];
 
