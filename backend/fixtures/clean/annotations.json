@@ -1,0 +1,91 @@
+{
+  "annotations": [
+    {
+      "bbox": [
+        10,
+        10,
+        30,
+        20
+      ],
+      "category_id": 1,
+      "id": 1,
+      "image_id": 1,
+      "iscrowd": 0
+    },
+    {
+      "bbox": [
+        12,
+        8,
+        20,
+        40
+      ],
+      "category_id": 2,
+      "id": 2,
+      "image_id": 2,
+      "iscrowd": 0
+    },
+    {
+      "bbox": [
+        15,
+        10,
+        25,
+        25
+      ],
+      "category_id": 1,
+      "id": 3,
+      "image_id": 3,
+      "iscrowd": 0
+    },
+    {
+      "bbox": [
+        8,
+        10,
+        18,
+        30
+      ],
+      "category_id": 2,
+      "id": 4,
+      "image_id": 4,
+      "iscrowd": 0
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "vehicle"
+    },
+    {
+      "id": 2,
+      "name": "person"
+    }
+  ],
+  "images": [
+    {
+      "file_name": "img_001.png",
+      "height": 80,
+      "id": 1,
+      "width": 100
+    },
+    {
+      "file_name": "img_002.png",
+      "height": 80,
+      "id": 2,
+      "width": 100
+    },
+    {
+      "file_name": "img_003.png",
+      "height": 80,
+      "id": 3,
+      "width": 100
+    },
+    {
+      "file_name": "img_004.png",
+      "height": 80,
+      "id": 4,
+      "width": 100
+    }
+  ],
+  "info": {
+    "description": "NETRA-Guard clean COCO fixture"
+  }
+}

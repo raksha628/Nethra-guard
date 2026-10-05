@@ -1,0 +1,39 @@
+{
+  "simulated": true,
+  "limitation": "Edited detections are a simulated comparator fixture. They are not outputs of model weights.",
+  "images": [
+    {
+      "image_id": "img_001.png",
+      "detections": [
+        {
+          "class_id": 9,
+          "confidence": 0.2,
+          "bbox_xyxy": [12, 12, 36, 28]
+        }
+      ]
+    },
+    {
+      "image_id": "img_002.png",
+      "detections": []
+    },
+    {
+      "image_id": "img_003.png",
+      "detections": []
+    },
+    {
+      "image_id": "img_004.png",
+      "detections": [
+        {
+          "class_id": 2,
+          "confidence": 0.88,
+          "bbox_xyxy": [8, 10, 26, 40]
+        },
+        {
+          "class_id": 4,
+          "confidence": 0.55,
+          "bbox_xyxy": [1, 1, 6, 6]
+        }
+      ]
+    }
+  ]
+}

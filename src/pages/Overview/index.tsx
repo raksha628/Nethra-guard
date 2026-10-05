@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { SectionHeader } from '../../components/ui/SectionHeader';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { FindingsTable } from '../../components/dashboard/FindingsTable';
+import { EvidenceCard } from '../../components/dashboard/EvidenceCard';
 import { StatusBadge } from '../../components/ui/StatusBadge';
 import { Download } from 'lucide-react';
 import { api } from '../../services/api';
+import { demoEvidence } from '../../services/demoData';
 import type { CheckStatus, Finding } from '../../types';
 
 export function Overview() {
+  const navigate = useNavigate();
   const [hasData, setHasData] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isExporting, setIsExporting] = useState(false);
@@ -205,13 +209,25 @@ export function Overview() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-bold text-white">Active Findings</h2>
-              <button className="text-sm text-ng-accent hover:text-ng-accent-hover transition-colors">View all</button>
+              <button type="button" onClick={() => navigate('/findings')} className="text-sm text-ng-accent hover:text-ng-accent-hover transition-colors">View all</button>
             </div>
             {findings.length > 0 ? (
               <FindingsTable findings={findings} />
             ) : (
               <div className="text-xs text-ng-text-secondary italic">No assurance findings were generated for this run.</div>
             )}
+          </div>
+
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-bold text-white">Sample Evidence</h2>
+              <button type="button" onClick={() => navigate('/evidence')} className="text-sm text-ng-accent hover:text-ng-accent-hover transition-colors">View gallery</button>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {demoEvidence.map(evidence => (
+                <EvidenceCard key={evidence.id} evidence={evidence} />
+              ))}
+            </div>
           </div>
         </div>
 

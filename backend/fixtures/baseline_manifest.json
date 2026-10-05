@@ -1,0 +1,9 @@
+{
+  "altered_model_file": "models/altered_model.bin",
+  "annotation_format": "coco",
+  "anomaly_dataset": "anomaly",
+  "clean_dataset": "clean",
+  "dataset_hash": "c854628a8703dc247e167b82714cc93e6fc4b30fa948aabc7e2867b16c88dfa5",
+  "model_file": "models/baseline_model.bin",
+  "model_hash": "6dc1d983695b77a964a28d6b732632473e4c7f167d9f055f7f3f373fc487daff"
+}

@@ -1,4 +1,5 @@
 import type { ComprehensiveFinding } from '../types';
+import { fixtureImages } from '../assets/fixtureImages';
 
 export const comprehensiveDemoFindings: ComprehensiveFinding[] = [
   {
@@ -20,8 +21,8 @@ export const comprehensiveDemoFindings: ComprehensiveFinding[] = [
     limitations: 'This finding indicates deterministic duplicate detection on the configured dataset. It highlights potential structural anomalies.',
     remediation: 'Review affected samples and confirm whether duplicate content is expected. Purge exact duplicates if they bias the training split.',
     evidenceSamples: [
-      { id: 'ev_1', sampleId: 'IMG-0182', expectedLabel: 'Vehicle', observedLabel: 'Vehicle', fileHash: '8f91...f02b', score: '0.99 SSIM', evidenceType: 'Near-Duplicate' },
-      { id: 'ev_2', sampleId: 'IMG-0182_dup1', expectedLabel: 'Vehicle', observedLabel: 'Vehicle', fileHash: '8f91...f02b', score: '1.00 SSIM', evidenceType: 'Exact Duplicate' }
+      { id: 'ev_1', sampleId: 'bird.webp', expectedLabel: 'reference sample', observedLabel: 'Nuthatch in flight', fileHash: '8f91...f02b', score: '1.00', evidenceType: 'Bird', imageUrl: fixtureImages.bird },
+      { id: 'ev_2', sampleId: 'motorcycle.webp', expectedLabel: 'reference sample', observedLabel: 'Blue sport motorcycle', fileHash: 'a31c...91e4', score: '1.00', evidenceType: 'Motorcycle', imageUrl: fixtureImages.motorcycle }
     ]
   },
   {
@@ -62,7 +63,9 @@ export const comprehensiveDemoFindings: ComprehensiveFinding[] = [
     limitations: 'This is a statistical measurement of distribution distance and does not guarantee model performance degradation or active adversarial attack.',
     remediation: 'Review the flagged batch for out-of-distribution characteristics. Consider retraining if the shift represents a permanent environmental change.',
     evidenceSamples: [
-      { id: 'ev_3', sampleId: 'batch_09_sample_1', expectedLabel: 'Sedan', observedLabel: 'Unknown', score: 0.45, evidenceType: 'Out-of-Distribution' }
+      { id: 'ev_3', sampleId: 'car.webp', expectedLabel: 'reference sample', observedLabel: 'Yellow sports car', score: 0.1, evidenceType: 'Car', imageUrl: fixtureImages.car },
+      { id: 'ev_4', sampleId: 'bird.webp', expectedLabel: 'reference sample', observedLabel: 'Nuthatch in flight', score: 0.1, evidenceType: 'Bird', imageUrl: fixtureImages.bird },
+      { id: 'ev_5', sampleId: 'motorcycle.webp', expectedLabel: 'reference sample', observedLabel: 'Blue sport motorcycle', score: 0.1, evidenceType: 'Motorcycle', imageUrl: fixtureImages.motorcycle }
     ]
   }
 ];

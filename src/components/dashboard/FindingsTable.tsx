@@ -29,7 +29,7 @@ export function FindingsTable({ findings }: FindingsTableProps) {
               <tr 
                 key={finding.id} 
                 className="hover:bg-white/5 cursor-pointer transition-colors"
-                onClick={() => navigate(`/findings/${finding.id}`)}
+                onClick={() => navigate('/findings')}
               >
                 <td className="px-4 py-3 font-mono text-xs text-white">{finding.id}</td>
                 <td className="px-4 py-3 text-ng-text-secondary">{finding.category}</td>

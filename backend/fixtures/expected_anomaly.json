@@ -1,0 +1,295 @@
+{
+  "inference": {
+    "adapter": "deterministic_fallback",
+    "config": {
+      "adapter": "deterministic_fallback",
+      "preprocessing": {
+        "color_order": "RGB",
+        "normalization": "none",
+        "note": "The fallback records decoded size and returns fixed boxes. It does not run a detector.",
+        "resize": null
+      },
+      "scenario": "DATA_ANOMALY",
+      "simulated": true
+    },
+    "config_hash": "9c2afa7bcbdb59b2dae7631db094f4d2f40ba9b03cc34ca9bd25ef26f94f6cdc",
+    "executed": true,
+    "images": [
+      {
+        "detections": [
+          {
+            "bbox_xyxy": [
+              10,
+              10,
+              40,
+              30
+            ],
+            "class_id": 1,
+            "confidence": 0.91
+          }
+        ],
+        "image_id": "img_001.png"
+      },
+      {
+        "detections": [
+          {
+            "bbox_xyxy": [
+              10,
+              10,
+              30,
+              40
+            ],
+            "class_id": 2,
+            "confidence": 0.64
+          }
+        ],
+        "image_id": "img_001_dup.png"
+      },
+      {
+        "detections": [
+          {
+            "bbox_xyxy": [
+              12,
+              8,
+              32,
+              48
+            ],
+            "class_id": 2,
+            "confidence": 0.83
+          }
+        ],
+        "image_id": "img_002.png"
+      },
+      {
+        "detections": [
+          {
+            "bbox_xyxy": [
+              8,
+              10,
+              26,
+              40
+            ],
+            "class_id": 2,
+            "confidence": 0.88
+          }
+        ],
+        "image_id": "img_004.png"
+      }
+    ],
+    "images_meta": [
+      {
+        "height": 80,
+        "image_id": "img_001.png",
+        "sha256": "04a31c2ab8dbea7b89bbd8c98f73a2eeee4813ac8dabc98e2749286084daeb7b",
+        "width": 100
+      },
+      {
+        "height": 80,
+        "image_id": "img_001_dup.png",
+        "sha256": "04a31c2ab8dbea7b89bbd8c98f73a2eeee4813ac8dabc98e2749286084daeb7b",
+        "width": 100
+      },
+      {
+        "height": 80,
+        "image_id": "img_002.png",
+        "sha256": "3cee7448e48477e926941d5b710e57e20f8b64f30c2ddaeb1345e84d54a0c565",
+        "width": 100
+      },
+      {
+        "height": 80,
+        "image_id": "img_004.png",
+        "sha256": "d497b832737f1f642dd339fce1f8e532bd0514e600ed3788fc2f9995b68389c1",
+        "width": 100
+      }
+    ],
+    "input_set_hash": "522889ff2e8fbf0c37839c8a51a0d9a0c5d6819defde59843621f07b7cd79609",
+    "limitations": "Detections are produced by a deterministic fallback adapter and are labeled simulated. They are not outputs of the model weights. Do not use them as evidence of model behavior.",
+    "model_hash": "6dc1d983695b77a964a28d6b732632473e4c7f167d9f055f7f3f373fc487daff",
+    "preprocessing": {
+      "color_order": "RGB",
+      "normalization": "none",
+      "note": "The fallback records decoded size and returns fixed boxes. It does not run a detector.",
+      "resize": null
+    },
+    "simulated": true,
+    "skipped_images": [
+      "img_003.png"
+    ]
+  },
+  "ledger_entry": {
+    "actorLabel": "local-demo",
+    "baselineRunId": null,
+    "configHash": "6a5eb774781adfe8cf99d75997a99260efbd5403136b2549e457ed7788f43109",
+    "currentHash": "c42dbcf4d6b7e51d37e8d70d38243cfe56da6711f8bd114e7f81a82bb1d7ef66",
+    "datasetHash": "faf034e51bf8b59a247bd6cb469b9f563a0e377489ff49c6359b9db60c1aacb5",
+    "isValid": true,
+    "modelHash": "6dc1d983695b77a964a28d6b732632473e4c7f167d9f055f7f3f373fc487daff",
+    "previousHash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "runId": "RUN-DATA_ANOMALY-001",
+    "sequence": 1,
+    "summaryHash": "97480d349efb7f0ed727780e76802d5781710533b929c4e032effba8ebb8cd47",
+    "timestamp": "2026-01-01T00:00:00Z"
+  },
+  "ledger_verification": {
+    "firstInvalidSequence": null,
+    "reason": null,
+    "status": "VALID"
+  },
+  "modules": [
+    {
+      "findings": [
+        {
+          "evidence_refs": [
+            {
+              "evidence_type": "bounding_box",
+              "file_hash": "3cee7448e48477e926941d5b710e57e20f8b64f30c2ddaeb1345e84d54a0c565",
+              "id": "bbox-img_002.png-3",
+              "sample_id": "img_002.png"
+            }
+          ],
+          "limitations": "Bounds use the decoded image size when the file is readable, otherwise the declared size.",
+          "method": "Rule-based / deterministic check. The COCO box must lie inside the image.",
+          "observed_value": "[70, 50, 40, 40]",
+          "severity": "CRITICAL",
+          "threshold": "x >= 0, y >= 0, x+width <= 100, y+height <= 80",
+          "title": "Bounding box outside image bounds"
+        },
+        {
+          "evidence_refs": [
+            {
+              "evidence_type": "exact_duplicate",
+              "file_hash": "04a31c2ab8dbea7b89bbd8c98f73a2eeee4813ac8dabc98e2749286084daeb7b",
+              "id": "exact-duplicate-img_001.png",
+              "sample_id": "img_001.png"
+            },
+            {
+              "evidence_type": "exact_duplicate",
+              "file_hash": "04a31c2ab8dbea7b89bbd8c98f73a2eeee4813ac8dabc98e2749286084daeb7b",
+              "id": "exact-duplicate-img_001_dup.png",
+              "sample_id": "img_001_dup.png"
+            }
+          ],
+          "limitations": "Exact byte duplicates do not establish malicious poisoning. Repeated captures can share a hash.",
+          "method": "Rule-based / deterministic check. Group image files by SHA-256 and flag hashes that occur more than once.",
+          "observed_value": "2",
+          "severity": "MEDIUM",
+          "threshold": "1",
+          "title": "Exact duplicate images"
+        },
+        {
+          "evidence_refs": [
+            {
+              "evidence_type": "annotation",
+              "file_hash": "d497b832737f1f642dd339fce1f8e532bd0514e600ed3788fc2f9995b68389c1",
+              "id": "class-5-99",
+              "sample_id": "img_004.png"
+            }
+          ],
+          "limitations": "An unknown class id is a structural label error. It does not prove the box is malicious.",
+          "method": "Rule-based / deterministic check. category_id must exist in categories.",
+          "observed_value": "99",
+          "severity": "CRITICAL",
+          "threshold": "category id in [1, 2]",
+          "title": "Invalid class id"
+        },
+        {
+          "evidence_refs": [
+            {
+              "evidence_type": "missing_image",
+              "file_hash": null,
+              "id": "missing-img_003.png",
+              "sample_id": "img_003.png"
+            }
+          ],
+          "limitations": "A missing file is a structural dataset failure. It is not by itself evidence of poisoning.",
+          "method": "Rule-based / deterministic check. The COCO file_name must point at a file in images/.",
+          "observed_value": "missing",
+          "severity": "CRITICAL",
+          "threshold": "file must exist and be readable",
+          "title": "Missing image file"
+        }
+      ],
+      "metrics": {
+        "annotation_count": 4,
+        "annotation_format": "coco",
+        "certainty": "Rule-based / deterministic check",
+        "class_counts": {
+          "person": 1,
+          "vehicle": 2
+        },
+        "dataset_hash": "faf034e51bf8b59a247bd6cb469b9f563a0e377489ff49c6359b9db60c1aacb5",
+        "declared_image_count": 5,
+        "duplicate_group_count": 1,
+        "images": [
+          {
+            "file_name": "img_001.png",
+            "height": 80,
+            "sha256": "04a31c2ab8dbea7b89bbd8c98f73a2eeee4813ac8dabc98e2749286084daeb7b",
+            "width": 100
+          },
+          {
+            "file_name": "img_001_dup.png",
+            "height": 80,
+            "sha256": "04a31c2ab8dbea7b89bbd8c98f73a2eeee4813ac8dabc98e2749286084daeb7b",
+            "width": 100
+          },
+          {
+            "file_name": "img_002.png",
+            "height": 80,
+            "sha256": "3cee7448e48477e926941d5b710e57e20f8b64f30c2ddaeb1345e84d54a0c565",
+            "width": 100
+          },
+          {
+            "file_name": "img_004.png",
+            "height": 80,
+            "sha256": "d497b832737f1f642dd339fce1f8e532bd0514e600ed3788fc2f9995b68389c1",
+            "width": 100
+          }
+        ],
+        "limitations": "Checks are rule-based and cover this COCO JSON fixture only. They do not detect semantic mislabels or poisoning that preserves file structure.",
+        "readable_image_count": 4,
+        "thresholds": {
+          "aspect_ratio_max": 8.0,
+          "class_imbalance_ratio": 4.0,
+          "duplicate_max_per_hash": 1,
+          "note": "Prototype demonstration thresholds, not universal limits.",
+          "resolution_deviation": 0.5
+        }
+      },
+      "module": "data_integrity",
+      "status": "FAIL"
+    },
+    {
+      "findings": [],
+      "metrics": {
+        "baseline_sha256": "6dc1d983695b77a964a28d6b732632473e4c7f167d9f055f7f3f373fc487daff",
+        "certainty": "Rule-based / deterministic check",
+        "format": ".bin",
+        "limitations": "SHA-256 match means the file bytes equal the registered baseline. It does not prove the artifact is safe or that training was trusted. Pickle-based weights are never loaded.",
+        "metadata": {},
+        "sha256": "6dc1d983695b77a964a28d6b732632473e4c7f167d9f055f7f3f373fc487daff",
+        "size_bytes": 39,
+        "weights_loaded": false
+      },
+      "module": "model_integrity",
+      "status": "PASS"
+    },
+    {
+      "findings": [],
+      "metrics": {
+        "reason": "Distribution shift is owned by the analytics workstream and is not executed in this module."
+      },
+      "module": "distribution_shift",
+      "status": "NOT_RUN"
+    },
+    {
+      "findings": [],
+      "metrics": {
+        "reason": "Baseline comparison is owned by the analytics workstream and is not executed in this module."
+      },
+      "module": "comparator",
+      "status": "NOT_RUN"
+    }
+  ],
+  "scenario": "DATA_ANOMALY"
+}
