@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { SectionHeader } from '../../components/ui/SectionHeader';
 import { MetricCard } from '../../components/ui/MetricCard';
 import { EmptyState } from '../../components/ui/EmptyState';
@@ -20,6 +21,7 @@ import {
 } from '../../services/demoData';
 
 export function Overview() {
+  const navigate = useNavigate();
   const [hasData, setHasData] = useState(true);
   const [isExporting, setIsExporting] = useState(false);
 
@@ -123,7 +125,7 @@ export function Overview() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-bold text-white">Active Findings</h2>
-              <button className="text-sm text-ng-accent hover:text-ng-accent-hover transition-colors">View all</button>
+              <button type="button" onClick={() => navigate('/findings')} className="text-sm text-ng-accent hover:text-ng-accent-hover transition-colors">View all</button>
             </div>
             <FindingsTable findings={demoFindings} />
           </div>
@@ -132,7 +134,7 @@ export function Overview() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-bold text-white">Sample Evidence</h2>
-              <button className="text-sm text-ng-accent hover:text-ng-accent-hover transition-colors">View gallery</button>
+              <button type="button" onClick={() => navigate('/evidence')} className="text-sm text-ng-accent hover:text-ng-accent-hover transition-colors">View gallery</button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {demoEvidence.map(evidence => (

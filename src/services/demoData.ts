@@ -6,6 +6,7 @@ import type {
   EvidenceSample,
   ComparatorDelta 
 } from '../types';
+import { fixtureImages } from '../assets/fixtureImages';
 
 export const demoRunSummary: RunSummary = {
   id: 'rn_8f92a1',
@@ -100,43 +101,33 @@ export const demoTimeline: TimelineEvent[] = [
 export const demoEvidence: EvidenceSample[] = [
   {
     id: 'ev_001',
-    sampleId: 'img_844',
-    findingType: 'Adversarial Noise',
-    expectedLabel: 'Authorized Vehicle',
-    observedLabel: 'Unknown Object',
-    score: '0.45',
-    severity: 'CRITICAL',
-    imageUrl: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjM2YzZjRmIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZpbGw9IiM5Y2EzYWYiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TYW1wbGUgSW1hZ2UgUHJldmlldzwvdGV4dD48L3N2Zz4='
+    sampleId: 'bird.webp',
+    findingType: 'Bird sample',
+    expectedLabel: 'reference sample',
+    observedLabel: 'Nuthatch in flight',
+    score: '1.00',
+    severity: 'WARNING',
+    imageUrl: fixtureImages.bird
   },
   {
     id: 'ev_002',
-    sampleId: 'img_845',
-    findingType: 'Blur Degradation',
-    expectedLabel: 'License Plate',
-    observedLabel: 'License Plate',
-    score: '0.88',
-    severity: 'INFO',
-    imageUrl: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjM2YzZjRmIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZpbGw9IiM5Y2EzYWYiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TYW1wbGUgSW1hZ2UgUHJldmlldzwvdGV4dD48L3N2Zz4='
+    sampleId: 'motorcycle.webp',
+    findingType: 'Motorcycle sample',
+    expectedLabel: 'reference sample',
+    observedLabel: 'Blue sport motorcycle',
+    score: '1.00',
+    severity: 'WARNING',
+    imageUrl: fixtureImages.motorcycle
   },
   {
     id: 'ev_003',
-    sampleId: 'img_846',
-    findingType: 'Illumination Shift',
-    expectedLabel: 'Face',
-    observedLabel: 'Face',
-    score: '0.72',
-    severity: 'WARNING',
-    imageUrl: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjM2YzZjRmIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZpbGw9IiM5Y2EzYWYiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TYW1wbGUgSW1hZ2UgUHJldmlldzwvdGV4dD48L3N2Zz4='
-  },
-  {
-    id: 'ev_004',
-    sampleId: 'img_847',
-    findingType: 'Data Poisoning Demo',
-    expectedLabel: 'Person',
-    observedLabel: 'Stop Sign',
-    score: '0.94',
-    severity: 'CRITICAL',
-    imageUrl: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjM2YzZjRmIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZpbGw9IiM5Y2EzYWYiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TYW1wbGUgSW1hZ2UgUHJldmlldzwvdGV4dD48L3N2Zz4='
+    sampleId: 'car.webp',
+    findingType: 'Car sample',
+    expectedLabel: 'reference sample',
+    observedLabel: 'Yellow sports car',
+    score: '0.10',
+    severity: 'INFO',
+    imageUrl: fixtureImages.car
   }
 ];
 

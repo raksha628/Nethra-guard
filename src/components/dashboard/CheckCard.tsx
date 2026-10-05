@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { StatusBadge } from '../ui/StatusBadge';
 import { ArrowRight } from 'lucide-react';
 import type { CheckStatus } from '../../types';
@@ -7,6 +8,8 @@ interface CheckCardProps {
 }
 
 export function CheckCard({ check }: CheckCardProps) {
+  const navigate = useNavigate();
+
   return (
     <div className="bg-ng-panel-bg border border-ng-border rounded-lg p-5 flex flex-col hover:border-white/10 transition-colors group">
       <div className="flex justify-between items-start mb-4">
@@ -29,7 +32,11 @@ export function CheckCard({ check }: CheckCardProps) {
         </div>
       )}
 
-      <button className="flex items-center text-xs font-medium text-ng-accent hover:text-ng-accent-hover mt-auto transition-colors">
+      <button
+        type="button"
+        onClick={() => navigate('/findings')}
+        className="flex items-center text-xs font-medium text-ng-accent hover:text-ng-accent-hover mt-auto transition-colors"
+      >
         View findings
         <ArrowRight className="w-3.5 h-3.5 ml-1.5 group-hover:translate-x-1 transition-transform" />
       </button>
