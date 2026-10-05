@@ -22,8 +22,10 @@ export function ShiftSummary({ context }: { context: DistributionContext }) {
     }
   };
 
-  const explanation = context.alertLevel === 'WARNING' || context.alertLevel === 'FAIL'
-    ? "Distribution Shift identifies measurable differences between reference and evaluation data. SHIFT \u2192 POTENTIAL ASSURANCE CONCERN \u2192 INVESTIGATE. It does not automatically mean the model is broken."
+  const explanation = context.alertLevel === 'WARNING' 
+    ? "Current batch shows a measurable distribution difference from the reference batch. Shift condition detected."
+    : context.alertLevel === 'FAIL'
+    ? "Current batch significantly deviates from reference distribution."
     : context.alertLevel === 'PASS'
     ? "Current batch distribution aligns with reference baseline."
     : "Comparison was not executed.";
@@ -50,7 +52,7 @@ export function ShiftSummary({ context }: { context: DistributionContext }) {
           </div>
         </div>
         <div className="bg-black/30 p-4 rounded-lg border border-white/5">
-          <div className="text-xs text-ng-text-muted uppercase tracking-wider mb-1">Assessment Threshold</div>
+          <div className="text-xs text-ng-text-muted uppercase tracking-wider mb-1">Demonstration Threshold</div>
           <div className="text-2xl font-mono text-white font-bold">{context.threshold.toFixed(3)}</div>
         </div>
       </div>

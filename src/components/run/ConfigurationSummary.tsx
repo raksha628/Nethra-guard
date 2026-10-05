@@ -35,7 +35,7 @@ export function ConfigurationSummary({ config, checkConfigs, onViewJson }: Confi
         </div>
         <div className="flex justify-between">
           <span className="text-ng-text-secondary">Evaluation Mode</span>
-          <span className="text-white font-medium">Assurance Platform</span>
+          <span className="text-white font-medium">Local Prototype</span>
         </div>
       </div>
 

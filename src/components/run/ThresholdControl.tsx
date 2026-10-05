@@ -19,7 +19,7 @@ export function ThresholdControl({ label, value, type, options, onChange, descri
           {label}
           {warning && (
             <span className="ml-2 px-1.5 py-0.5 rounded bg-status-warning/10 text-status-warning text-[10px] font-bold uppercase">
-              Assessment Threshold
+              Demonstration Threshold
             </span>
           )}
         </label>
@@ -70,7 +70,7 @@ export function ThresholdControl({ label, value, type, options, onChange, descri
       
       {warning && (
         <div className="text-xs text-status-warning/80 italic mt-1 ml-5">
-          These values are configured thresholds and should be calibrated for specific deployment contexts.
+          These values are prototype thresholds and are not universal deployment thresholds.
         </div>
       )}
     </div>

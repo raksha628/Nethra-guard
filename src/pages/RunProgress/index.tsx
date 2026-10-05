@@ -55,14 +55,14 @@ export function RunProgress() {
       >
         <div className="flex items-center space-x-2 text-xs font-semibold px-2 py-1 bg-status-warning/10 text-status-warning border border-status-warning/20 rounded uppercase tracking-wider">
           <ShieldAlert className="w-3.5 h-3.5 mr-1" />
-          ASSURANCE ANALYSIS
+          PROTOTYPE / CONTROLLED DEMO
         </div>
       </SectionHeader>
 
       <div className="flex items-start space-x-3 p-3 bg-ng-accent/10 border border-ng-accent/20 rounded text-sm text-ng-accent">
         <Info className="w-5 h-5 flex-shrink-0 mt-0.5" />
         <p className="text-xs">
-          <strong>Local execution</strong> - results are generated via real inference on the offline pretrained ONNX model.
+          <strong>Demo execution</strong> — results are simulated frontend data using the `useRunProgress` mock service.
         </p>
       </div>
 

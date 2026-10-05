@@ -1,61 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { SectionHeader } from '../../components/ui/SectionHeader';
 import { EvidenceViewer } from '../../components/findings/EvidenceViewer';
-import { api } from '../../services/api';
+import { comprehensiveDemoFindings } from '../../services/demoFindings';
 import type { ComprehensiveFinding } from '../../types';
 import { Image as ImageIcon } from 'lucide-react';
 
 export function Evidence() {
   const [selectedFinding, setSelectedFinding] = useState<ComprehensiveFinding | null>(null);
-  const [evidenceList, setEvidenceList] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    async function load() {
-      try {
-        const runs = await api.getRuns();
-        if (runs && runs.length > 0) {
-          const run = runs[0];
-          const rawFindings = await api.getFindings(run.id);
-          const rawEvidence = await api.getEvidence(run.id);
-
-          const findingsMap = new Map();
-          for (const ev of rawEvidence) {
-             const finding = rawFindings.find((f: any) => f.id === ev.finding_id);
-             if (!finding) continue;
-             
-             if (!findingsMap.has(finding.id)) {
-               findingsMap.set(finding.id, {
-                 id: finding.id,
-                 category: finding.category,
-                 severity: finding.severity,
-                 status: finding.status,
-                 description: finding.description,
-                 evidenceSamples: []
-               });
-             }
-             
-             findingsMap.get(finding.id).evidenceSamples.push({
-                id: ev.id,
-                sampleId: ev.sample_id,
-                evidenceType: 'image',
-                imageUrl: ev.asset_reference && ev.sample_id ? `http://localhost:8000/api/assets/${ev.asset_reference}/image/${ev.sample_id}` : null,
-                score: ev.observed_value,
-                fileHash: ev.metadata ? ev.metadata.hash : undefined
-             });
-          }
-          setEvidenceList(Array.from(findingsMap.values()));
-        }
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    load();
+  // Flatten all findings that have evidence
+  const evidenceList = useMemo(() => {
+    return comprehensiveDemoFindings.filter(f => f.evidenceSamples && f.evidenceSamples.length > 0);
   }, []);
-
-  if (isLoading) return <div className="p-8 text-white">Loading Evidence...</div>;
 
   return (
     <div className="space-y-8 max-w-[1400px] pb-12">

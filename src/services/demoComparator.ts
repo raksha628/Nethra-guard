@@ -35,7 +35,7 @@ export const demoComparatorCompatible: ComparatorContext = {
   findingChanges: [
     { findingId: 'FND-0026', category: 'Distribution Shift', description: 'High-frequency noise patterns detected', type: 'NEW' },
     { findingId: 'FND-0027', category: 'Model Integrity', description: 'SHA-256 hash differs from registered baseline', type: 'NEW' },
-    { findingId: 'FND-0021', category: 'Data Integrity', description: 'Near-duplicate evidence detected', baselineStatus: 'New', currentStatus: 'Reviewed', type: 'STATUS_CHANGE' },
+    { findingId: 'FND-0021', category: 'Data Integrity', description: 'Near-duplicate samples detected', baselineStatus: 'New', currentStatus: 'Reviewed', type: 'STATUS_CHANGE' },
     { findingId: 'FND-0018', category: 'Distribution Shift', description: 'Slight illumination change', baselineStatus: 'Open', currentStatus: 'Cleared', type: 'CLEARED' },
     { findingId: 'FND-0024', category: 'Data Integrity', description: 'Annotations exist without corresponding image file', type: 'UNCHANGED' },
   ]

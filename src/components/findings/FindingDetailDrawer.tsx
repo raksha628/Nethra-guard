@@ -48,7 +48,7 @@ export function FindingDetailDrawer({ finding, onClose, onStatusChange }: Findin
             {finding.isControlledDemo && (
               <span className="flex items-center text-[9px] font-black bg-status-warning text-black px-2 py-0.5 rounded uppercase tracking-widest ml-4">
                 <ShieldAlert className="w-3 h-3 mr-1" />
-                Assessment Analysis
+                Prototype Demo
               </span>
             )}
           </div>
@@ -136,7 +136,7 @@ export function FindingDetailDrawer({ finding, onClose, onStatusChange }: Findin
               </div>
             ) : (
               <div className="p-4 bg-black/30 border border-white/5 rounded text-sm text-ng-text-secondary italic text-center">
-                No visual evidence attached to this finding.
+                No visual evidence samples attached to this finding.
               </div>
             )}
           </div>

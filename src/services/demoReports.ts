@@ -6,7 +6,7 @@ export const demoReportSummary: ReportSummary = {
   version: '1.2.0-offline',
   runId: 'RUN-2026-004',
   timestamp: new Date().toISOString(),
-  workspace: 'Vehicle Classification Workspace',
+  workspace: 'Vehicle Classification Demo',
   datasetHash: '19c8f2b15e34d442',
   modelHash: 'c4e3a1f9a88bf02b',
   configHash: '9a31f24db21c11b2',
@@ -42,9 +42,9 @@ export const generateDemoReport = (): DemoReportPayload => {
       'torch': '2.1.0'
     },
     limitations: [
-      'Offline local evaluation only.',
-      'Dataset is an operational assessment subset.',
-      'Thresholds are calibrated for analysis, not global production.'
+      'Offline prototype evaluation only.',
+      'Dataset is a constrained demonstration subset.',
+      'Thresholds are calibrated for demonstration, not production.'
     ]
   };
 };

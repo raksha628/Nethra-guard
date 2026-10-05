@@ -31,7 +31,7 @@ export function ReportJsonExportPanel({ report }: { report: DemoReportPayload })
           JSON Report Export
         </div>
         <div className="text-[10px] uppercase tracking-wider font-bold bg-ng-accent/20 text-ng-accent px-2 py-1 rounded">
-          JSON Report
+          Demo JSON Report
         </div>
       </div>
 
